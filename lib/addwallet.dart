@@ -4,45 +4,56 @@ import 'package:test_database_floor/database/database.dart';
 import 'package:test_database_floor/models/wallet.dart';
 import 'package:test_database_floor/myhomepage.dart';
 import 'package:test_database_floor/servises/dao_wallet.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Addwallet extends StatefulWidget {
-  final WalletDao dao;
-  Addwallet(this.dao);
-  @override
-  _AddwalletState createState() => _AddwalletState();
-}
+import 'servises/wallet_cubit/states.dart';
+import 'servises/wallet_cubit/cubit.dart';
 
-class _AddwalletState extends State<Addwallet> {
+class Addwallet extends StatelessWidget {
+
+
   TextEditingController nameController = TextEditingController();
 
   int isID;
-  AppDatabase database;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: [
-        TextFormField(
-          controller: nameController,
-          decoration: const InputDecoration(
-            icon: Icon(Icons.person),
-            hintText: 'What do people call you?',
-            labelText: 'Name Wallet',
-          ),
+      body: BlocProvider(
+        create: (BuildContext context) => WalletCubit()..createDatabase(),
+        child: BlocConsumer<WalletCubit,WalletStates>(
+          listener: (context,state){
+            if(state is InsertWalletsToDatabaseState){
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()));
+            }
+          },
+          builder: (context,state){
+            return ListView(children: [
+              TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'What do people call you?',
+                  labelText: 'Name Wallet',
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              FlatButton(
+                  child: Text('save'),
+                  onPressed: () {
+                      WalletCubit.get(context).insertToDatabase(
+                          isId: isID,
+                          walletName: nameController.text,
+                      );
+                  })
+            ]);
+          },
         ),
-        SizedBox(
-          height: 50,
-        ),
-        FlatButton(
-            child: Text('save'),
-            onPressed: () {
-              setState(() {
-                Wallet wallet = Wallet(isID, nameController.text);
-                widget.dao.insertPerson(wallet);
-              });
-              Navigator.of(context).pop();
-            })
-      ]),
+      ),
     );
   }
 }
+
