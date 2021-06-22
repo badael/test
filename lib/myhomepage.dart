@@ -1,6 +1,9 @@
 import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
+import 'package:test_database_floor/addBassel.dart';
 import 'package:test_database_floor/models/wallet.dart';
+import 'package:test_database_floor/servises/bassel_cubit/cubit.dart';
+import 'package:test_database_floor/servises/bassel_cubit/states.dart';
 import 'package:test_database_floor/servises/dao_wallet.dart';
 import 'package:test_database_floor/servises/wallet_cubit/cubit.dart';
 import 'package:test_database_floor/servises/wallet_cubit/states.dart';
@@ -17,15 +20,35 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => WalletCubit()..createDatabase(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => WalletCubit()..createDatabase(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => BasselCubit()..createDatabase(),
+        )
+      ],
+
       child: BlocConsumer<WalletCubit,WalletStates>(
         listener: (BuildContext context,WalletStates state){},
         builder: (BuildContext context, WalletStates){
 
           WalletCubit cubit = WalletCubit.get(context);
+          BasselCubit basselCubit =BasselCubit.get(context);
           return Scaffold(
-            appBar: AppBar(title: Text('My Wallet')),
+            appBar: AppBar(
+                title:
+                Row(
+                  children: [
+                    Text('My Wallet'),
+                    TextButton(
+                        onPressed:() => Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => AddBassel())),
+                        child: Icon(Icons.add,color: Colors.black,))
+                  ],
+                )
+            ),
             body: ConditionalBuilder(
               condition: true,
               fallback: (context) => Center(child: CircularProgressIndicator(),),
@@ -46,13 +69,19 @@ class MyHomePage extends StatelessWidget {
 
                                   },
                                 ),
+                                subtitle:BlocConsumer<BasselCubit,BasselStates>(
+                                  listener: (BuildContext context,BasselStates state){},
+                                  builder: (BuildContext context, BasselStates){
+                                    return Text(basselCubit.getBasselOfWallet(walletId: cubit.wallets[index].id));
+                                  }
+                                ) ,
                               ));
                         },
                       );
                     ;
               },
             ),
-
+              // Text(basselCubit.bassels[index].name)
             // FutureBuilder(
             //   future: cubit.dao.retrieveUsers(),
             //   builder: (BuildContext context, AsyncSnapshot<List<Wallet>> snapshot) {
