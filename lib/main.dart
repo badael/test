@@ -1,30 +1,25 @@
-import 'package:floor/floor.dart';
+import 'package:floor_test_2/bloc_observer.dart';
+import 'bloc_observer.dart';
 import 'package:flutter/material.dart';
-import 'package:test_database_floor/servises/dao_wallet.dart';
-import 'database/database.dart';
-import 'myhomepage.dart';
+import 'screens/Homepage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final database =
-      await $FloorAppDatabase.databaseBuilder('database_wallet.db').build();
-  final dao = database.walletDao;
+  Bloc.observer = MyBlocObserver();
 
-  runApp(MyApp(dao));
+  runApp(MyApp());
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  final WalletDao dao;
-  MyApp(this.dao);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(dao),
+      home: HomePage(),
     );
   }
 }

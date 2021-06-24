@@ -1,4 +1,4 @@
-name: test_database_floor
+name: floor_test_2
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -34,7 +34,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   floor_generator: any
-  build_runner: any
+  build_runner: any  
+ 
+  # Bloc
+  bloc: any
+  flutter_bloc: any
+
+  # date_format:
+  intl: any
+  conditional_builder: any
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

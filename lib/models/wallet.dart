@@ -1,11 +1,11 @@
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'wallet', primaryKeys: ['id'])
+@Entity(tableName: 'wallet')
 class Wallet {
+  @PrimaryKey(autoGenerate: true)
   final int id;
-
-  @ColumnInfo(name: 'name_wallet')
   final String name;
+  final String ammunt;
 
-  Wallet(this.id, this.name);
+  Wallet({this.name, this.ammunt, this.id});
 }
