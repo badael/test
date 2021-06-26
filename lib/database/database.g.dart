@@ -62,7 +62,7 @@ class _$AppDatabase extends AppDatabase {
 
   WalletDao _walletDaoInstance;
 
-  BaselDao _baselDaoInstance;
+  CurrencyDao _baselDaoInstance;
 
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback callback]) async {
@@ -82,9 +82,9 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `wallet` (`id` INTEGER, `name_wallet` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Wallet` (`id` INTEGER, `name_wallet` TEXT, `balance` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `basel` (`id` INTEGER, `name` TEXT, `owner_id` INTEGER, FOREIGN KEY (`owner_id`) REFERENCES `wallet` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Currency` (`id` INTEGER, `name` TEXT, `image` TEXT, `owner_id` INTEGER, FOREIGN KEY (`owner_id`) REFERENCES `Wallet` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -98,8 +98,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  BaselDao get baselDao {
-    return _baselDaoInstance ??= _$BaselDao(database, changeListener);
+  CurrencyDao get baselDao {
+    return _baselDaoInstance ??= _$CurrencyDao(database, changeListener);
   }
 }
 
@@ -108,9 +108,21 @@ class _$WalletDao extends WalletDao {
       : _queryAdapter = QueryAdapter(database),
         _walletInsertionAdapter = InsertionAdapter(
             database,
-            'wallet',
-            (Wallet item) =>
-                <String, dynamic>{'id': item.id, 'name_wallet': item.name});
+            'Wallet',
+            (Wallet item) => <String, dynamic>{
+                  'id': item.id,
+                  'name_wallet': item.name,
+                  'balance': item.balance
+                }),
+        _walletUpdateAdapter = UpdateAdapter(
+            database,
+            'Wallet',
+            ['id'],
+            (Wallet item) => <String, dynamic>{
+                  'id': item.id,
+                  'name_wallet': item.name,
+                  'balance': item.balance
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -120,51 +132,45 @@ class _$WalletDao extends WalletDao {
 
   final InsertionAdapter<Wallet> _walletInsertionAdapter;
 
-  @override
-  Future<List<Wallet>> findAllPersons() async {
-    return _queryAdapter.queryList('SELECT * FROM Wallet',
-        mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String));
-  }
+  final UpdateAdapter<Wallet> _walletUpdateAdapter;
 
   @override
-  Future<Wallet> findPersonById(int id) async {
+  Future<Wallet> deletWallet(int id) async {
     return _queryAdapter.query('SELECT * FROM Wallet WHERE id = ?',
         arguments: <dynamic>[id],
-        mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String));
+        mapper: (Map<String, dynamic> row) => Wallet(row['id'] as int,
+            row['name_wallet'] as String, row['balance'] as String));
   }
 
   @override
-  Future<List<Wallet>> retrieveUsers() async {
+  Future<List<Wallet>> getAllwallet() async {
     return _queryAdapter.queryList('SELECT * FROM Wallet',
-        mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String));
+        mapper: (Map<String, dynamic> row) => Wallet(row['id'] as int,
+            row['name_wallet'] as String, row['balance'] as String));
   }
 
   @override
-  Future<Wallet> deleteUser(int id) async {
-    return _queryAdapter.query('DELETE FROM Wallet WHERE id = ?',
-        arguments: <dynamic>[id],
-        mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String));
-  }
-
-  @override
-  Future<void> insertPerson(Wallet wallet) async {
+  Future<void> insertWallet(Wallet wallet) async {
     await _walletInsertionAdapter.insert(wallet, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<int> updateWallet(List<Wallet> wallet) {
+    return _walletUpdateAdapter.updateListAndReturnChangedRows(
+        wallet, OnConflictStrategy.abort);
   }
 }
 
-class _$BaselDao extends BaselDao {
-  _$BaselDao(this.database, this.changeListener)
+class _$CurrencyDao extends CurrencyDao {
+  _$CurrencyDao(this.database, this.changeListener)
       : _queryAdapter = QueryAdapter(database),
-        _baselInsertionAdapter = InsertionAdapter(
+        _currencyInsertionAdapter = InsertionAdapter(
             database,
-            'basel',
-            (Basel item) => <String, dynamic>{
+            'Currency',
+            (Currency item) => <String, dynamic>{
                   'id': item.id,
                   'name': item.name,
+                  'image': item.image,
                   'owner_id': item.ownerId
                 });
 
@@ -174,25 +180,42 @@ class _$BaselDao extends BaselDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<Basel> _baselInsertionAdapter;
+  final InsertionAdapter<Currency> _currencyInsertionAdapter;
 
   @override
-  Future<List<Basel>> findAllPersons() async {
-    return _queryAdapter.queryList('SELECT * FROM Basel',
-        mapper: (Map<String, dynamic> row) => Basel(
-            row['id'] as int, row['name'] as String, row['owner_id'] as int));
-  }
-
-  @override
-  Future<Basel> findPersonById(int id) async {
-    return _queryAdapter.query('SELECT * FROM Basel WHERE id = ?',
+  Future<Currency> updateCurrency(int id) async {
+    return _queryAdapter.query('SELECT * FROM Currency WHERE id = ?',
         arguments: <dynamic>[id],
-        mapper: (Map<String, dynamic> row) => Basel(
-            row['id'] as int, row['name'] as String, row['owner_id'] as int));
+        mapper: (Map<String, dynamic> row) => Currency(
+            row['id'] as int,
+            row['name'] as String,
+            row['owner_id'] as int,
+            row['image'] as String));
   }
 
   @override
-  Future<void> insertPerson(Basel basel) async {
-    await _baselInsertionAdapter.insert(basel, OnConflictStrategy.abort);
+  Future<Currency> deleteCurrency(int id) async {
+    return _queryAdapter.query('SELECT * FROM Currency WHERE id = ?',
+        arguments: <dynamic>[id],
+        mapper: (Map<String, dynamic> row) => Currency(
+            row['id'] as int,
+            row['name'] as String,
+            row['owner_id'] as int,
+            row['image'] as String));
+  }
+
+  @override
+  Future<List<Currency>> getAllcurrency() async {
+    return _queryAdapter.queryList('SELECT * FROM Currency',
+        mapper: (Map<String, dynamic> row) => Currency(
+            row['id'] as int,
+            row['name'] as String,
+            row['owner_id'] as int,
+            row['image'] as String));
+  }
+
+  @override
+  Future<void> insertCurrency(Currency currency) async {
+    await _currencyInsertionAdapter.insert(currency, OnConflictStrategy.abort);
   }
 }

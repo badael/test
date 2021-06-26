@@ -5,18 +5,15 @@ import 'package:test_database_floor/models/wallet.dart';
 
 @dao
 abstract class WalletDao {
-  @Query('SELECT * FROM Wallet')
-  Future<List<Wallet>> findAllPersons();
+  @insert
+  Future<void> insertWallet(Wallet wallet);
+
+  @update
+  Future<int> updateWallet(List<Wallet> wallet);
 
   @Query('SELECT * FROM Wallet WHERE id = :id')
-  Future<Wallet> findPersonById(int id);
+  Future<Wallet> deletWallet(int id);
 
   @Query('SELECT * FROM Wallet')
-  Future<List<Wallet>> retrieveUsers();
-
-  @Query('DELETE FROM Wallet WHERE id = :id')
-  Future<Wallet> deleteUser(int id);
-
-  @insert
-  Future<void> insertPerson(Wallet wallet);
+  Future<List<Wallet>> getAllwallet();
 }

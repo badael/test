@@ -1,11 +1,12 @@
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'wallet', primaryKeys: ['id'])
+@Entity(tableName: 'Wallet', primaryKeys: ['id'])
 class Wallet {
   final int id;
 
   @ColumnInfo(name: 'name_wallet')
   final String name;
+  final String balance;
 
-  Wallet(this.id, this.name);
+  Wallet(this.id, this.name, this.balance);
 }

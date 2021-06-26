@@ -1,21 +1,14 @@
-import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
-import 'package:test_database_floor/servises/dao_wallet.dart';
-import 'database/database.dart';
+import 'bloc-observer.dart';
 import 'myhomepage.dart';
+import 'package:bloc/bloc.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final database =
-      await $FloorAppDatabase.databaseBuilder('database_wallet.db').build();
-  final dao = database.walletDao;
-
-  runApp(MyApp(dao));
+  Bloc.observer = MyBlocObserver();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final WalletDao dao;
-  MyApp(this.dao);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(dao),
+      home: MyHomePage(),
     );
   }
 }
