@@ -195,4 +195,12 @@ class _$BaselDao extends BaselDao {
   Future<void> insertPerson(Basel basel) async {
     await _baselInsertionAdapter.insert(basel, OnConflictStrategy.abort);
   }
+
+  @override
+  Future<Basel> deleteUser(int id) async {
+    return _queryAdapter.query('DELETE FROM Basel WHERE id = ?',
+        arguments: <dynamic>[id],
+        mapper: (Map<String, dynamic> row) =>
+            Basel(row['id'] as int, row['name'] as String,row['owner_id'] as int));
+  }
 }

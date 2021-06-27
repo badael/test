@@ -11,6 +11,9 @@ abstract class BaselDao {
   @Query('SELECT * FROM Basel WHERE id = :id')
   Future<Basel> findPersonById(int id);
 
+  @Query('DELETE FROM Basel WHERE id = :id')
+  Future<Basel> deleteUser(int id);
+
   @insert
   Future<void> insertPerson(Basel basel);
 }
