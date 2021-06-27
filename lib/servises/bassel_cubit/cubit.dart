@@ -63,15 +63,24 @@ class BasselCubit extends Cubit<BasselStates>{
     return 'no bassel for this wallet';
   }
 
-  // void deleteWalletFromDatabase({
-  //   @required int id,
-  // }){
-  //   dao.deleteUser(id).then((value)  {
-  //     emit(DeleteWalletsFromDatabaseState());
-  //     getWalletsFromDatabase();
-  //   });
-  // }
-
+  void deleteWalletFromDatabase({
+    @required int id,
+  }){
+    dao.deleteUser(id).then((value)  {
+      emit(DeleteBasselsFromDatabaseState());
+      getBasselsFromDatabase();
+    });
+  }
+int getWalletId({
+  @required int id,
+}){
+  for(int i = 0 ; i <bassels.length;i++){
+    if(bassels[i].ownerId == id){
+      return bassels[i].id;
+    }
+  }
+  return 0;
+}
 
 
 

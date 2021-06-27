@@ -1,6 +1,5 @@
 import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
-import 'package:test_database_floor/addBassel.dart';
 import 'package:test_database_floor/models/wallet.dart';
 import 'package:test_database_floor/servises/bassel_cubit/cubit.dart';
 import 'package:test_database_floor/servises/bassel_cubit/states.dart';
@@ -39,15 +38,7 @@ class MyHomePage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
                 title:
-                Row(
-                  children: [
-                    Text('My Wallet'),
-                    TextButton(
-                        onPressed:() => Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => AddBassel())),
-                        child: Icon(Icons.add,color: Colors.black,))
-                  ],
-                )
+                Text('My Wallet')
             ),
             body: ConditionalBuilder(
               condition: true,
@@ -61,13 +52,19 @@ class MyHomePage extends StatelessWidget {
                               child: ListTile(
                                 contentPadding: EdgeInsets.all(8.0),
                                 title: Text(cubit.wallets[index].name),
-                                leading: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
+                                leading: BlocConsumer<BasselCubit,BasselStates>(
+                                  listener:(context,state){},
+                                    builder:(context,state){
+                                    return IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {
+                                        basselCubit.deleteWalletFromDatabase(id:basselCubit.getWalletId(id: cubit.wallets[index].id ));
 
-                                      cubit.deleteWalletFromDatabase(id: cubit.wallets[index].id);
+                                        cubit.deleteWalletFromDatabase(id: cubit.wallets[index].id);
 
-                                  },
+                                      },
+                                    );
+                                    }
                                 ),
                                 subtitle:BlocConsumer<BasselCubit,BasselStates>(
                                   listener: (BuildContext context,BasselStates state){},

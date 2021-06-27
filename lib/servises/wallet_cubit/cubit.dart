@@ -15,6 +15,7 @@ class WalletCubit extends Cubit<WalletStates>{
   AppDatabase database ;
   WalletDao dao  ;
   List<Wallet> wallets = [];
+  int lastId ;
 
   void createDatabase(){
     $FloorAppDatabase.databaseBuilder('database_wallet.db').build().then((value) {
@@ -29,13 +30,21 @@ class WalletCubit extends Cubit<WalletStates>{
   void getWalletsFromDatabase(){
     this.dao.retrieveUsers().then((value) {
       wallets = value;
+      if(value.length > 0){
+        lastId = value[value.length -1].id;
+      }else{
+        lastId = 0;
+      }
+
       emit(GetWalletsFromDatabaseState());
 
 
     });
   }
 
-  void insertToDatabase({
+
+
+  Future<void> insertToDatabase({
     @required int isId,
     @required String walletName,
   }){
