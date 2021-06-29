@@ -55,6 +55,17 @@ class WalletCubit extends Cubit<WalletStates>{
     });
   }
 
+  Future<void> updateWalletDatabase({
+    @required int isId,
+    @required String walletName,
+  }){
+    dao.updateWallet(Wallet(isId, walletName)).then((value) {
+      emit(UpdateWalletsToDatabaseState());
+      getWalletsFromDatabase();
+
+    });
+  }
+
   void deleteWalletFromDatabase({
   @required int id,
 }){

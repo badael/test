@@ -110,7 +110,14 @@ class _$WalletDao extends WalletDao {
             database,
             'wallet',
             (Wallet item) =>
-                <String, dynamic>{'id': item.id, 'name_wallet': item.name});
+                <String, dynamic>{'id': item.id, 'name_wallet': item.name}),
+        _WalletUpdateAdapter = UpdateAdapter(
+            database,
+            'wallet',
+            ['id'],
+                (Wallet item) =>
+            <String, Object>{'id': item.id, 'name_wallet': item.name},
+            changeListener);
 
   final sqflite.DatabaseExecutor database;
 
@@ -119,6 +126,8 @@ class _$WalletDao extends WalletDao {
   final QueryAdapter _queryAdapter;
 
   final InsertionAdapter<Wallet> _walletInsertionAdapter;
+
+  final UpdateAdapter<Wallet> _WalletUpdateAdapter;
 
   @override
   Future<List<Wallet>> findAllPersons() async {
@@ -153,6 +162,11 @@ class _$WalletDao extends WalletDao {
   @override
   Future<void> insertPerson(Wallet wallet) async {
     await _walletInsertionAdapter.insert(wallet, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> updateWallet(Wallet wallet) async {
+    await _WalletUpdateAdapter.update(wallet, OnConflictStrategy.abort);
   }
 }
 

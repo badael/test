@@ -6,6 +6,7 @@ import 'package:test_database_floor/servises/bassel_cubit/states.dart';
 import 'package:test_database_floor/servises/dao_wallet.dart';
 import 'package:test_database_floor/servises/wallet_cubit/cubit.dart';
 import 'package:test_database_floor/servises/wallet_cubit/states.dart';
+import 'package:test_database_floor/updateWallet.dart';
 import 'addwallet.dart';
 import 'database/database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,6 +73,8 @@ class MyHomePage extends StatelessWidget {
                                     return Text(basselCubit.getBasselOfWallet(walletId: cubit.wallets[index].id));
                                   }
                                 ) ,
+                                onTap: () => Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) => Updatewallet(walletId:cubit.wallets[index].id ,walletName: cubit.wallets[index].name,))),
                               ));
                         },
                       );
