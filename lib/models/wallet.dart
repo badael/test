@@ -7,5 +7,17 @@ class Wallet {
   @ColumnInfo(name: 'name_wallet')
   final String name;
 
-  Wallet(this.id, this.name);
+  @ColumnInfo(name: 'balance')
+  final String balance;
+
+  @ColumnInfo(name: 'is_active')
+  final int isActive;
+
+  @ColumnInfo(name: 'icon')
+  final String icon;
+
+  @ColumnInfo(name: 'is_appear')
+  final int isAppear;
+
+  Wallet(this.id, this.name, this.balance, this.isActive, this.icon, this.isAppear);
 }

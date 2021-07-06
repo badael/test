@@ -1,9 +1,9 @@
 import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
-import 'package:test_database_floor/servises/dao_wallet.dart';
+import 'package:test_database_floor/services/dao/dao_wallet.dart';
 import 'bloc-observer.dart';
 import 'database/database.dart';
-import 'myhomepage.dart';
+import 'screens/myhomepage.dart';
 import 'package:bloc/bloc.dart';
 
 void main() async {

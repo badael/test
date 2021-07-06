@@ -8,4 +8,6 @@ class GetWalletsFromDatabaseState extends WalletStates{}
 
 class InsertWalletsToDatabaseState extends WalletStates{}
 
+class UpdateWalletsToDatabaseState extends WalletStates{}
+
 class DeleteWalletsFromDatabaseState extends WalletStates{}

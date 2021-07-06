@@ -17,6 +17,9 @@ abstract class WalletDao {
   @Query('DELETE FROM Wallet WHERE id = :id')
   Future<Wallet> deleteUser(int id);
 
+  @update
+  Future<void> updateWallet(Wallet wallet);
+
   @insert
   Future<void> insertPerson(Wallet wallet);
 }
