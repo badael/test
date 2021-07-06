@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/database/database.dart';
 import 'package:test_database_floor/models/wallet.dart';
-import 'package:test_database_floor/servises/wallet_cubit/states.dart';
+import 'package:test_database_floor/services/wallet_cubit/states.dart';
 
-import '../dao_wallet.dart';
+import '../dao/dao_wallet.dart';
 
 
 class WalletCubit extends Cubit<WalletStates>{
@@ -47,8 +47,9 @@ class WalletCubit extends Cubit<WalletStates>{
   Future<void> insertToDatabase({
     @required int isId,
     @required String walletName,
+    @required String walletBalance
   }){
-    dao.insertPerson(Wallet(isId, walletName)).then((value) {
+    dao.insertPerson(Wallet(isId, walletName, walletBalance , 1,'' ,1)).then((value) {
       emit(InsertWalletsToDatabaseState());
       getWalletsFromDatabase();
 
@@ -59,7 +60,7 @@ class WalletCubit extends Cubit<WalletStates>{
     @required int isId,
     @required String walletName,
   }){
-    dao.updateWallet(Wallet(isId, walletName)).then((value) {
+    dao.updateWallet(Wallet(isId, walletName,'' , 1,'' ,1)).then((value) {
       emit(UpdateWalletsToDatabaseState());
       getWalletsFromDatabase();
 

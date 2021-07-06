@@ -2,14 +2,15 @@ import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/database/database.dart';
 import 'package:test_database_floor/models/wallet.dart';
-import 'package:test_database_floor/myhomepage.dart';
-import 'package:test_database_floor/servises/bassel_cubit/cubit.dart';
-import 'package:test_database_floor/servises/bassel_cubit/states.dart';
-import 'package:test_database_floor/servises/dao_wallet.dart';
+import 'package:test_database_floor/screens/myhomepage.dart';
+import 'package:test_database_floor/screens/wallet/wallet_home.dart';
+import 'package:test_database_floor/services/currency_cubit/cubit.dart';
+import 'package:test_database_floor/services/currency_cubit/states.dart';
+import 'package:test_database_floor/services/dao/dao_wallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'servises/wallet_cubit/states.dart';
-import 'servises/wallet_cubit/cubit.dart';
+import '../../services/wallet_cubit/states.dart';
+import '../../services/wallet_cubit/cubit.dart';
 
 class Updatewallet extends StatelessWidget {
 final walletId;
@@ -32,7 +33,7 @@ final walletName;
             create: (BuildContext context) => WalletCubit()..createDatabase(),
           ),
           BlocProvider(
-            create: (BuildContext context) => BasselCubit()..createDatabase(),
+            create: (BuildContext context) => CurrencyCubit()..createDatabase(),
           ),
         ],
 
@@ -41,7 +42,7 @@ final walletName;
           listener: (context,state){
             if(state is UpdateWalletsToDatabaseState){
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()));
+                  MaterialPageRoute(builder: (context) => WalletHome()));
             }
           },
           builder: (context,state){
@@ -58,15 +59,15 @@ final walletName;
               SizedBox(
                 height: 50,
               ),
-              BlocConsumer<BasselCubit,BasselStates>(
+              BlocConsumer<CurrencyCubit,CurrencyStates>(
                 listener: (context,state){
-                  if(state is InsertBasselsToDatabaseState){
+                  if(state is InsertCurrenciesToDatabaseState){
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => MyHomePage()));
                   }
                 },
                 builder: (context,state){
-                  return FlatButton(
+                  return TextButton(
                       child: Text('save'),
                       onPressed: () {
                         WalletCubit.get(context).updateWalletDatabase(

@@ -1,15 +1,17 @@
 import 'package:floor/floor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/database/database.dart';
 import 'package:test_database_floor/models/wallet.dart';
-import 'package:test_database_floor/myhomepage.dart';
-import 'package:test_database_floor/servises/bassel_cubit/cubit.dart';
-import 'package:test_database_floor/servises/bassel_cubit/states.dart';
-import 'package:test_database_floor/servises/dao_wallet.dart';
+import 'package:test_database_floor/screens/myhomepage.dart';
+import 'package:test_database_floor/screens/wallet/wallet_home.dart';
+import 'package:test_database_floor/services/currency_cubit/cubit.dart';
+import 'package:test_database_floor/services/currency_cubit/states.dart';
+import 'package:test_database_floor/services/dao/dao_wallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'servises/wallet_cubit/states.dart';
-import 'servises/wallet_cubit/cubit.dart';
+import '../../services/wallet_cubit/states.dart';
+import '../../services/wallet_cubit/cubit.dart';
 
 class Addwallet extends StatelessWidget {
 
@@ -29,7 +31,7 @@ class Addwallet extends StatelessWidget {
           create: (BuildContext context) => WalletCubit()..createDatabase(),
           ),
             BlocProvider(
-              create: (BuildContext context) => BasselCubit()..createDatabase(),
+              create: (BuildContext context) => CurrencyCubit()..createDatabase(),
             ),
           ],
 
@@ -56,6 +58,7 @@ class Addwallet extends StatelessWidget {
               ),
               TextFormField(
                 controller: balanceController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
                   hintText: 'What do people call you?',
@@ -76,11 +79,11 @@ class Addwallet extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              BlocConsumer<BasselCubit,BasselStates>(
+              BlocConsumer<CurrencyCubit,CurrencyStates>(
                 listener: (context,state){
-                  if(state is InsertBasselsToDatabaseState){
+                  if(state is InsertCurrenciesToDatabaseState){
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                        MaterialPageRoute(builder: (context) => WalletHome()));
                   }
                 },
                 builder: (context,state){
@@ -90,8 +93,9 @@ class Addwallet extends StatelessWidget {
                         WalletCubit.get(context).insertToDatabase(
                           isId: isID,
                           walletName: nameController.text,
+                          walletBalance: balanceController.text
                         );
-                        BasselCubit.get(context).insertToDatabase(
+                        CurrencyCubit.get(context).insertToDatabase(
                             isId: isID,
                             basselName: currencyController.text,
                             ownerId:WalletCubit.get(context).lastId != null?  WalletCubit.get(context).lastId + 1 : 1);
