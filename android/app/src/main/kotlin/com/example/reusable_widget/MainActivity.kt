@@ -1,4 +1,4 @@
-package com.example.test_database_floor
+package com.example.reusable_widget
 
 import io.flutter.embedding.android.FlutterActivity
 
