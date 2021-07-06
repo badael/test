@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reusable_widget/widgets/custom_CustomFloatinActionButton.dart';
 
 void main() {
   runApp(MyApp());
@@ -103,10 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      floatingActionButton: CustomFloatinActionButton(
+        icon: Icon(Icons.add),
+        onPressed: () {},
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
