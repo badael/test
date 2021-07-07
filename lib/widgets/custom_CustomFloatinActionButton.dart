@@ -16,7 +16,7 @@ class CustomFloatinActionButton extends StatelessWidget {
       child: Icon(
         Icons.add,
         color: Colors.blue,
-        size: 10,
+        size: 25,
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable_widget/widgets/custom_CustomFloatinActionButton.dart';
+import 'package:reusable_widget/widgets/custom_appBar.dart';
+import 'package:reusable_widget/widgets/custom_textFormField.dart';
 
 void main() {
   runApp(MyApp());
@@ -60,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  TextEditingController nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -69,11 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+      appBar: CustomAppBar(Icon(Icons.search), 'appBar'),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -94,6 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            CustomTextFormField(
+                'userName', nameController, Icon(Icons.ac_unit), () {}, () {}),
             Text(
               'You have pushed the button this many times:',
             ),
@@ -107,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: CustomFloatinActionButton(
         icon: Icon(Icons.add),
         onPressed: () {},
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

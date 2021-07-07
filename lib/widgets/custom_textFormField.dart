@@ -18,17 +18,34 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-      ),
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 16.0,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 1.2,
+    return Container(
+      height: 40,
+      // width: ,
+      color: Colors.grey[100],
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 1.0,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.amber,
+              width: 1.0,
+            ),
+          ),
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+        ),
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.2,
+        ),
       ),
     );
   }
