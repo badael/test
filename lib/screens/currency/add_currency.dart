@@ -10,7 +10,6 @@ class AddCurrency extends StatelessWidget {
 
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController ownerIdController = TextEditingController();
 
   int isID;
 
@@ -45,25 +44,12 @@ class AddCurrency extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              TextFormField(
-                controller: ownerIdController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'What do people call you?',
-                  labelText: 'wallet Id',
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
               FlatButton(
                   child: Text('save'),
                   onPressed: () {
                     CurrencyCubit.get(context).insertToDatabase(
                       isId: isID,
                       basselName: nameController.text,
-                      ownerId: int.parse(ownerIdController.text)
 
                     );
 

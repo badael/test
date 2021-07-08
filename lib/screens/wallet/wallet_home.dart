@@ -55,7 +55,7 @@ class WalletHome extends StatelessWidget {
                                 return IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
-                                    currencyCubit.deleteCurrencyFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
+                                    // currencyCubit.deleteCurrencyFromDatabase(id:cubit.wallets[index].currencyId );
 
                                     cubit.deleteWalletFromDatabase(id: cubit.wallets[index].id);
 
@@ -66,11 +66,11 @@ class WalletHome extends StatelessWidget {
                           subtitle:BlocConsumer<CurrencyCubit,CurrencyStates>(
                               listener: (BuildContext context,CurrencyStates state){},
                               builder: (BuildContext context, CurrencyStates state){
-                                return Text(currencyCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
+                                return Text(currencyCubit.getCurrencyOfWallet(currencyId:  cubit.wallets[index].currencyId));
                               }
                           ) ,
                           onTap: () => Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Updatewallet(walletId:cubit.wallets[index].id ,walletName: cubit.wallets[index].name,))),
+                              MaterialPageRoute(builder: (context) => Updatewallet(walletId:cubit.wallets[index].id ,walletName: cubit.wallets[index].name,walletCurrencyId:cubit.wallets[index].currencyId ,))),
                         ));
                   },
                 );

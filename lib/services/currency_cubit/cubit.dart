@@ -38,34 +38,22 @@ class CurrencyCubit extends Cubit<CurrencyStates>{
   void insertToDatabase({
     @required int isId,
     @required String basselName,
-    @required int ownerId,
   }){
 
-    print(ownerId);
-    dao.insertPerson(Currency(isId, basselName,ownerId,'','')).then((value) {
+    dao.insertPerson(Currency(isId, basselName,'','')).then((value) {
       emit(InsertCurrenciesToDatabaseState());
       getCurrenciesFromDatabase();
 
     });
   }
 
-  String getCurrencyOfWallet({
-  @required int walletId,
-}){
-    for(int i = 0 ; i <currencies.length;i++){
-      if(currencies[i].ownerId == walletId){
-        return currencies[i].name;
-      }
-    }
-    return 'no bassel for this wallet';
-  }
+
 
   Future<void> updateCurrencyDatabase({
     @required int isId,
     @required String currencyName,
-    @required int ownerId
   }){
-    dao.updateCurrency(Currency(isId, currencyName,ownerId, '','')).then((value) {
+    dao.updateCurrency(Currency(isId, currencyName, '','')).then((value) {
       emit(UpdateCurrencyToDatabaseState());
       getCurrenciesFromDatabase();
 
@@ -80,16 +68,29 @@ class CurrencyCubit extends Cubit<CurrencyStates>{
       getCurrenciesFromDatabase();
     });
   }
-int getWalletId({
-  @required int id,
-}){
-  for(int i = 0 ; i <currencies.length;i++){
-    if(currencies[i].ownerId == id){
-      return currencies[i].id;
+
+  String getCurrencyOfWallet({
+    @required int currencyId,
+  }){
+    for(int i = 0 ; i <currencies.length;i++){
+      if(currencies[i].id == currencyId){
+        return currencies[i].name;
+      }
     }
+    return 'no bassel for this wallet';
   }
-  return 0;
-}
+
+  // int getWalletId({
+  //   @required int id,
+  // }){
+  //   for(int i = 0 ; i <currencies.length;i++){
+  //     if(currencies[i].ownerId == id){
+  //       return currencies[i].id;
+  //     }
+  //   }
+  //   return 0;
+  // }
+
 
 
 

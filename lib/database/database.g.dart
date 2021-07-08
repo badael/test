@@ -88,9 +88,9 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `wallet` (`id` INTEGER, `name_wallet` TEXT,`balance` TEXT,`icon` TEXT,`is_appear` INTEGER,`is_active` INTEGER, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `wallet` (`id` INTEGER, `name_wallet` TEXT,`balance` TEXT,`icon` TEXT, `currency_id` INTEGER,`is_appear` INTEGER,`is_active` INTEGER, FOREIGN KEY (`currency_id`) REFERENCES `wallet` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Currency` (`id` INTEGER, `name` TEXT, `code` TEXT, `icon` TEXT, `owner_id` INTEGER, FOREIGN KEY (`owner_id`) REFERENCES `wallet` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Currency` (`id` INTEGER, `name` TEXT, `code` TEXT, `icon` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Contact` (`id` INTEGER, `name` TEXT,`is_appear` INTEGER,`is_active` INTEGER, PRIMARY KEY (`id`))'
         );
@@ -147,13 +147,13 @@ class _$WalletDao extends WalletDao {
             database,
             'wallet',
             (Wallet item) =>
-                <String, dynamic>{'id': item.id, 'name_wallet': item.name,'balance': item.balance,'icon' : item.icon,'is_active':item.isActive,'is_appear':item.isAppear}),
+                <String, dynamic>{'id': item.id, 'name_wallet': item.name,'balance': item.balance,'icon' : item.icon,'is_active':item.isActive,'is_appear':item.isAppear,'currency_id':item.currencyId}),
         _walletUpdateAdapter = UpdateAdapter(
             database,
             'wallet',
             ['id'],
                 (Wallet item) =>
-            <String, Object>{'id': item.id, 'name_wallet': item.name,'balance': item.balance,'icon' : item.icon,'is_active':item.isActive,'is_appear':item.isAppear},
+            <String, Object>{'id': item.id, 'name_wallet': item.name,'balance': item.balance,'icon' : item.icon,'is_active':item.isActive,'is_appear':item.isAppear,'currency_id':item.currencyId},
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -170,7 +170,7 @@ class _$WalletDao extends WalletDao {
   Future<List<Wallet>> findAllPersons() async {
     return _queryAdapter.queryList('SELECT * FROM Wallet',
         mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int));
+            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int,row['currency_id'] as int));
   }
 
   @override
@@ -178,14 +178,14 @@ class _$WalletDao extends WalletDao {
     return _queryAdapter.query('SELECT * FROM Wallet WHERE id = ?',
         arguments: <dynamic>[id],
         mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int));
+            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int,row['currency_id'] as int));
   }
 
   @override
   Future<List<Wallet>> retrieveUsers() async {
     return _queryAdapter.queryList('SELECT * FROM Wallet',
         mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int));
+            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int,row['currency_id'] as int));
   }
 
   @override
@@ -193,7 +193,7 @@ class _$WalletDao extends WalletDao {
     return _queryAdapter.query('DELETE FROM Wallet WHERE id = ?',
         arguments: <dynamic>[id],
         mapper: (Map<String, dynamic> row) =>
-            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int));
+            Wallet(row['id'] as int, row['name_wallet'] as String, row['balance'] as String, row['is_active'] as int, row['icon'] as String, row['is_appear'] as int,row['currency_id'] as int));
   }
 
   @override
@@ -216,14 +216,14 @@ class _$CurrencyDao extends CurrencyDao {
             (Currency item) => <String, dynamic>{
                   'id': item.id,
                   'name': item.name,
-                  'owner_id': item.ownerId,'icon' : item.icon,'code':item.code
+                  'icon' : item.icon,'code':item.code
                 }),
         _currencyUpdateAdapter = UpdateAdapter(
             database,
             'Currency',
             ['id'],
                 (Currency item) =>
-            <String, Object>{'id': item.id, 'name': item.name,'owner_id': item.ownerId,'icon' : item.icon,'code':item.code},
+            <String, Object>{'id': item.id, 'name': item.name,'icon' : item.icon,'code':item.code},
             changeListener);
 
   final UpdateAdapter<Currency> _currencyUpdateAdapter;
@@ -241,7 +241,7 @@ class _$CurrencyDao extends CurrencyDao {
     return _queryAdapter.queryList('SELECT * FROM Currency',
         mapper: (Map<String, dynamic> row) =>
 
-            Currency(row['id'] as int, row['name'] as String, row['owner_id'] as int, row['code'] as String, row['icon'] as String)
+            Currency(row['id'] as int, row['name'] as String, row['code'] as String, row['icon'] as String)
     );
   }
 
@@ -249,7 +249,7 @@ class _$CurrencyDao extends CurrencyDao {
   Future<Currency> findPersonById(int id) async {
     return _queryAdapter.query('SELECT * FROM Currency WHERE id = ?',
         arguments: <dynamic>[id],
-        mapper: (Map<String, dynamic> row) => Currency(row['id'] as int, row['name'] as String, row['owner_id'] as int, row['code'] as String, row['icon'] as String));
+        mapper: (Map<String, dynamic> row) => Currency(row['id'] as int, row['name'] as String, row['code'] as String, row['icon'] as String));
   }
 
   @override
@@ -262,7 +262,7 @@ class _$CurrencyDao extends CurrencyDao {
     return _queryAdapter.query('DELETE FROM Currency WHERE id = ?',
         arguments: <dynamic>[id],
         mapper: (Map<String, dynamic> row) =>
-            Currency(row['id'] as int, row['name'] as String, row['owner_id'] as int, row['code'] as String, row['icon'] as String));
+            Currency(row['id'] as int, row['name'] as String, row['code'] as String, row['icon'] as String));
   }
 
   @override

@@ -15,13 +15,14 @@ import '../../services/wallet_cubit/cubit.dart';
 class Updatewallet extends StatelessWidget {
 final walletId;
 final walletName;
+final walletCurrencyId;
 
   TextEditingController nameController = TextEditingController();
 
 
 
 
-   Updatewallet({Key key, this.walletId,this.walletName}) : super(key: key);
+   Updatewallet({Key key, this.walletId,this.walletName,this.walletCurrencyId}) : super(key: key);
 
 
   @override
@@ -73,6 +74,7 @@ final walletName;
                         WalletCubit.get(context).updateWalletDatabase(
                           isId: walletId,
                           walletName: nameController.text,
+                          currencyId: walletCurrencyId
                         );
 
 
