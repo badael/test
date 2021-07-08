@@ -8,14 +8,13 @@ import 'package:test_database_floor/services/currency_cubit/states.dart';
 class UpdateCurrency extends StatelessWidget {
   final currencyId;
   final currencyName;
-  final walletId;
 
   TextEditingController nameController = TextEditingController();
 
 
 
 
-  UpdateCurrency({Key key, this.currencyId,this.currencyName, this.walletId}) : super(key: key);
+  UpdateCurrency({Key key, this.currencyId,this.currencyName}) : super(key: key);
 
 
   @override
@@ -56,7 +55,6 @@ class UpdateCurrency extends StatelessWidget {
                     CurrencyCubit.get(context).updateCurrencyDatabase(
                       isId: currencyId,
                       currencyName:  nameController.text,
-                      ownerId: walletId
                     );
 
 

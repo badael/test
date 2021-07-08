@@ -50,7 +50,7 @@ class CurrencyHome extends StatelessWidget {
                             },
                           ),
                           onTap: () => Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => UpdateCurrency(currencyId:cubit.currencies[index].id ,currencyName: cubit.currencies[index].name,walletId:cubit.currencies[index].ownerId ))),
+                              MaterialPageRoute(builder: (context) => UpdateCurrency(currencyId:cubit.currencies[index].id ,currencyName: cubit.currencies[index].name))),
                         ));
                   },
                 );

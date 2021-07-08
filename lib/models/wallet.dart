@@ -1,6 +1,15 @@
 import 'package:floor/floor.dart';
+import 'package:test_database_floor/models/currency.dart';
 
-@Entity(tableName: 'wallet', primaryKeys: ['id'])
+@Entity(tableName: 'wallet',
+  primaryKeys: ['id'],
+  foreignKeys: [
+  ForeignKey(
+    childColumns: ['currency_id'],
+    parentColumns: ['id'],
+    entity: Currency,
+  )
+],)
 class Wallet {
   final int id;
 
@@ -19,5 +28,8 @@ class Wallet {
   @ColumnInfo(name: 'is_appear')
   final int isAppear;
 
-  Wallet(this.id, this.name, this.balance, this.isActive, this.icon, this.isAppear);
+  @ColumnInfo(name: 'currency_id')
+  final int currencyId;
+
+  Wallet(this.id, this.name, this.balance, this.isActive, this.icon, this.isAppear,this.currencyId);
 }

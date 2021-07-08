@@ -38,10 +38,10 @@ class Addwallet extends StatelessWidget {
 
         child: BlocConsumer<WalletCubit,WalletStates>(
           listener: (context,state){
-            // if(state is InsertWalletsToDatabaseState){
-            //   Navigator.pushReplacement(context,
-            //       MaterialPageRoute(builder: (context) => MyHomePage()));
-            // }
+            if(state is InsertWalletsToDatabaseState){
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()));
+            }
           },
           builder: (context,state){
             return ListView(children: [
@@ -70,6 +70,7 @@ class Addwallet extends StatelessWidget {
               ),
               TextFormField(
                 controller: currencyController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
                   hintText: 'What do people call you?',
@@ -93,12 +94,13 @@ class Addwallet extends StatelessWidget {
                         WalletCubit.get(context).insertToDatabase(
                           isId: isID,
                           walletName: nameController.text,
-                          walletBalance: balanceController.text
+                          walletBalance: balanceController.text,
+                          currencyId: int.parse(currencyController.text)
                         );
-                        CurrencyCubit.get(context).insertToDatabase(
-                            isId: isID,
-                            basselName: currencyController.text,
-                            ownerId:WalletCubit.get(context).lastId != null?  WalletCubit.get(context).lastId + 1 : 1);
+                        // CurrencyCubit.get(context).insertToDatabase(
+                        //     isId: isID,
+                        //     basselName: currencyController.text,
+                        //     ownerId:WalletCubit.get(context).lastId != null?  WalletCubit.get(context).lastId + 1 : 1);
 
 
                       });

@@ -47,9 +47,10 @@ class WalletCubit extends Cubit<WalletStates>{
   Future<void> insertToDatabase({
     @required int isId,
     @required String walletName,
-    @required String walletBalance
+    @required String walletBalance,
+    @required int currencyId
   }){
-    dao.insertPerson(Wallet(isId, walletName, walletBalance , 1,'' ,1)).then((value) {
+    dao.insertPerson(Wallet(isId, walletName, walletBalance , 1,'' ,1,currencyId)).then((value) {
       emit(InsertWalletsToDatabaseState());
       getWalletsFromDatabase();
 
@@ -59,8 +60,9 @@ class WalletCubit extends Cubit<WalletStates>{
   Future<void> updateWalletDatabase({
     @required int isId,
     @required String walletName,
+    @required int currencyId
   }){
-    dao.updateWallet(Wallet(isId, walletName,'' , 1,'' ,1)).then((value) {
+    dao.updateWallet(Wallet(isId, walletName,'' , 1,'' ,1,currencyId)).then((value) {
       emit(UpdateWalletsToDatabaseState());
       getWalletsFromDatabase();
 
@@ -75,6 +77,8 @@ class WalletCubit extends Cubit<WalletStates>{
       getWalletsFromDatabase();
     });
   }
+
+
 
 
 
