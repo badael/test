@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/screens/transaction/add_transaction.dart';
+import 'package:test_database_floor/screens/transaction/update_transaction.dart';
 import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/states.dart';
@@ -11,6 +12,7 @@ import 'package:test_database_floor/services/wallet_cubit/states.dart';
 import 'package:test_database_floor/screens/wallet/updateWallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
 
 class TransactionHome extends StatelessWidget {
 
@@ -44,10 +46,9 @@ class TransactionHome extends StatelessWidget {
           ExchangeCubit exchangeCubit = ExchangeCubit.get(context);
           WalletCubit walletCubit = WalletCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
-                title:
-                Text('Transaction')
-            ),
+            appBar: CustomAppBar(
+                Icon(Icons.wallet_giftcard),
+                'Transaction'),
             body: ConditionalBuilder(
               condition: true,
               fallback: (context) => Center(child: CircularProgressIndicator(),),
@@ -75,8 +76,8 @@ class TransactionHome extends StatelessWidget {
                           //       return Text(walletCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
                           //     }
                           // ) ,
-                          // onTap: () => Navigator.pushReplacement(context,
-                          //     MaterialPageRoute(builder: (context) => Updatewallet(walletId:cubit.wallets[index].id ,walletName: cubit.wallets[index].name,))),
+                          onTap: () => Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => UpdateTransaction(transactionId:transactionCubit.transactions[index].id ))),
                         ));
                   },
                 );

@@ -74,6 +74,17 @@ class ExchangeCubit extends Cubit<ExchangeStates>{
     });
   }
 
+  int getExchangeId({
+    @required String exchangeName,
+  }){
+    for(int i = 0 ; i <exchanges.length;i++){
+      if(exchanges[i].name == exchangeName){
+        return exchanges[i].id;
+      }
+    }
+    return 0;
+  }
+
 
 
 

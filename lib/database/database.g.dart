@@ -442,7 +442,7 @@ class _$TransactionDao extends TransactionDao {
               'total': item.total,
               'paid': item.paid,
               'rest': item.rest,
-              'transactionDate': item.transactionDate,
+              'transaction_date': item.transactionDate,
               'description': item.description,
               'is_active': item.isActive,
               'is_appear': item.isAppear,
@@ -457,7 +457,7 @@ class _$TransactionDao extends TransactionDao {
               'total': item.total,
               'paid': item.paid,
               'rest': item.rest,
-              'transactionDate': item.transactionDate,
+              'transaction_date': item.transactionDate,
               'description': item.description,
               'is_active': item.isActive,
               'is_appear': item.isAppear,
@@ -483,7 +483,7 @@ class _$TransactionDao extends TransactionDao {
                 row['total'] as String,
                 row['paid'] as String,
                 row['rest'] as String,
-                row['transactionDate'] as String,
+                row['transaction_date'] as String,
                 row['description'] as String,
                 row['is_active'] as int,
                 row['is_appear'] as int,
@@ -498,7 +498,7 @@ class _$TransactionDao extends TransactionDao {
   Future<Transaction> findTransactionById(int id) async {
     return _queryAdapter.query('SELECT * FROM transaction WHERE id = ?',
         arguments: <dynamic>[id],
-        mapper: (Map<String, dynamic> row) => Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transactionDate'] as String, row['description'] as String, row['isActive'] as int, row['isAppear'] as int, row['isIncome'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int));
+        mapper: (Map<String, dynamic> row) => Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transaction_date'] as String, row['description'] as String, row['isActive'] as int, row['isAppear'] as int, row['isIncome'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int));
   }
 
   @override
@@ -511,7 +511,7 @@ class _$TransactionDao extends TransactionDao {
     return _queryAdapter.query('DELETE FROM transaction WHERE id = ?',
         arguments: <dynamic>[id],
         mapper: (Map<String, dynamic> row) =>
-            Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transactionDate'] as String, row['description'] as String, row['isActive'] as int, row['isAppear'] as int, row['isIncome'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int));
+            Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transaction_date'] as String, row['description'] as String, row['isActive'] as int, row['isAppear'] as int, row['isIncome'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int));
   }
 
   @override
@@ -523,7 +523,7 @@ class _$TransactionDao extends TransactionDao {
   Future<List<Transaction>> retrieveTransactions() {
     return _queryAdapter.queryList('SELECT * FROM transaction',
         mapper: (Map<String, dynamic> row) =>
-            Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transactionDate'] as String, row['description'] as String, row['is_active'] as int, row['is_appear'] as int, row['is_income'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int)
+            Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transaction_date'] as String, row['description'] as String, row['is_active'] as int, row['is_appear'] as int, row['is_income'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int)
     );
   }
 }

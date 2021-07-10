@@ -5,6 +5,7 @@ import 'package:test_database_floor/screens/exchange/add_exchange.dart';
 import 'package:test_database_floor/screens/exchange/update_exchange.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
 
 class ExchangeHome extends StatelessWidget {
 
@@ -26,10 +27,9 @@ class ExchangeHome extends StatelessWidget {
 
           ExchangeCubit cubit = ExchangeCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
-                title:
-                Text('Exchange Category')
-            ),
+            appBar:CustomAppBar(
+                Icon(Icons.wallet_giftcard),
+                'Exchange Category'),
             body: ConditionalBuilder(
               condition: true,
               fallback: (context) => Center(child: CircularProgressIndicator(),),
