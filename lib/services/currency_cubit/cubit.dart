@@ -77,19 +77,19 @@ class CurrencyCubit extends Cubit<CurrencyStates>{
         return currencies[i].name;
       }
     }
-    return 'no bassel for this wallet';
+    return 'no currency for this wallet';
   }
 
-  // int getWalletId({
-  //   @required int id,
-  // }){
-  //   for(int i = 0 ; i <currencies.length;i++){
-  //     if(currencies[i].ownerId == id){
-  //       return currencies[i].id;
-  //     }
-  //   }
-  //   return 0;
-  // }
+  int getCurrencyId({
+    @required String currencyName,
+  }){
+    for(int i = 0 ; i <currencies.length;i++){
+      if(currencies[i].name == currencyName){
+        return currencies[i].id;
+      }
+    }
+    return 0;
+  }
 
 
 

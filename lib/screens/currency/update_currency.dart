@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/screens/currency/currency_home.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/states.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/custom_textFormField.dart';
 
 class UpdateCurrency extends StatelessWidget {
   final currencyId;
@@ -20,6 +22,9 @@ class UpdateCurrency extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+          Icon(Icons.wallet_giftcard),
+          'Update Currency'),
       body:MultiBlocProvider(
         providers:[
           BlocProvider(
@@ -37,15 +42,23 @@ class UpdateCurrency extends StatelessWidget {
           },
           builder: (context,state){
             return ListView(children: [
-              TextFormField(
-                controller: nameController,
-                // initialValue: walletName,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'What do people call you?',
-                  labelText: 'Name Currency',
-                ),
-              ),
+
+              SizedBox(height: 20,),
+              CustomTextFormField(
+                  'Name Currency',
+                  nameController,
+                  Icon(Icons.money),
+                      (){},
+                      (){}),
+              // TextFormField(
+              //   controller: nameController,
+              //   // initialValue: walletName,
+              //   decoration: const InputDecoration(
+              //     icon: Icon(Icons.person),
+              //     hintText: 'What do people call you?',
+              //     labelText: 'Name Currency',
+              //   ),
+              // ),
               SizedBox(
                 height: 50,
               ),

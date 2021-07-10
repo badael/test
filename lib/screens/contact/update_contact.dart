@@ -4,6 +4,8 @@ import 'package:test_database_floor/screens/contact/contact_home.dart';
 import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/contact_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/custom_textFormField.dart';
 
 class UpdateContact extends StatelessWidget {
   final contactId;
@@ -20,6 +22,9 @@ class UpdateContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+          Icon(Icons.wallet_giftcard),
+          'Update Contact'),
       body:MultiBlocProvider(
         providers:[
           BlocProvider(
@@ -37,15 +42,22 @@ class UpdateContact extends StatelessWidget {
           },
           builder: (context,state){
             return ListView(children: [
-              TextFormField(
-                controller: nameController,
-                // initialValue: walletName,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'What do people call you?',
-                  labelText: 'Name Contact',
-                ),
-              ),
+              SizedBox(height: 20,),
+              CustomTextFormField(
+                  'Name Contact',
+                  nameController,
+                  Icon(Icons.person),
+                      (){},
+                      (){}),
+              // TextFormField(
+              //   controller: nameController,
+              //   // initialValue: walletName,
+              //   decoration: const InputDecoration(
+              //     icon: Icon(Icons.person),
+              //     hintText: 'What do people call you?',
+              //     labelText: 'Name Contact',
+              //   ),
+              // ),
               SizedBox(
                 height: 50,
               ),

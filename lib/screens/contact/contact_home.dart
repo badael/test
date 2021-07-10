@@ -5,6 +5,7 @@ import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/contact_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
 
 class ContactHome extends StatelessWidget {
 
@@ -26,10 +27,9 @@ class ContactHome extends StatelessWidget {
 
           ContactCubit cubit = ContactCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
-                title:
-                Text('My Contact')
-            ),
+            appBar: CustomAppBar(
+                Icon(Icons.wallet_giftcard),
+                'My Contact'),
             body: ConditionalBuilder(
               condition: true,
               fallback: (context) => Center(child: CircularProgressIndicator(),),

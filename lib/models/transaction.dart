@@ -32,6 +32,8 @@ class Transaction {
   final String total;
   final String paid;
   final String rest;
+
+  @ColumnInfo(name: 'transaction_date')
   final String transactionDate;
   final String description;
 

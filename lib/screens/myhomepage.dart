@@ -8,6 +8,7 @@ import 'package:test_database_floor/screens/wallet/wallet_home.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/wallet_cubit/cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
 
 class MyHomePage extends StatelessWidget {
 
@@ -25,9 +26,9 @@ class MyHomePage extends StatelessWidget {
       ],
 
       child:Scaffold(
-        appBar: AppBar(
-          title: Text('Honey Bee'),
-        ),
+        appBar: CustomAppBar(
+            Icon(Icons.wallet_giftcard),
+            'Honey Bee'),
         body: Center(
           child: SingleChildScrollView(child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

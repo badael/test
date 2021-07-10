@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/screens/exchange/exchange_home.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/custom_textFormField.dart';
 
 class UpdateExchange extends StatelessWidget {
   final exchangeId;
@@ -20,6 +22,9 @@ class UpdateExchange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+          Icon(Icons.wallet_giftcard),
+          'Update Exchange'),
       body:MultiBlocProvider(
         providers:[
           BlocProvider(
@@ -37,15 +42,23 @@ class UpdateExchange extends StatelessWidget {
           },
           builder: (context,state){
             return ListView(children: [
-              TextFormField(
-                controller: nameController,
-                // initialValue: walletName,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'What do people call you?',
-                  labelText: 'Name Exchange',
-                ),
-              ),
+
+              SizedBox(height: 20,),
+              CustomTextFormField(
+                  'Name Exchange',
+                  nameController,
+                  Icon(Icons.person),
+                      (){},
+                      (){}),
+              // TextFormField(
+              //   controller: nameController,
+              //   // initialValue: walletName,
+              //   decoration: const InputDecoration(
+              //     icon: Icon(Icons.person),
+              //     hintText: 'What do people call you?',
+              //     labelText: 'Name Exchange',
+              //   ),
+              // ),
               SizedBox(
                 height: 50,
               ),

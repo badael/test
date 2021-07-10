@@ -74,6 +74,17 @@ class ContactCubit extends Cubit<ContactStates>{
     });
   }
 
+  int getContactId({
+    @required String contactName,
+  }){
+    for(int i = 0 ; i <contacts.length;i++){
+      if(contacts[i].name == contactName){
+        return contacts[i].id;
+      }
+    }
+    return 0;
+  }
+
 
 
 

@@ -6,6 +6,7 @@ import 'package:test_database_floor/services/wallet_cubit/states.dart';
 import 'package:test_database_floor/screens/wallet/updateWallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
 
 import 'addwallet.dart';
 
@@ -33,10 +34,9 @@ class WalletHome extends StatelessWidget {
           WalletCubit cubit = WalletCubit.get(context);
           CurrencyCubit currencyCubit =CurrencyCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
-                title:
-                Text('My Wallet')
-            ),
+            appBar: CustomAppBar(
+                Icon(Icons.wallet_giftcard),
+                'My Wallet'),
             body: ConditionalBuilder(
               condition: true,
               fallback: (context) => Center(child: CircularProgressIndicator(),),

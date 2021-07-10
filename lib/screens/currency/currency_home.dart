@@ -5,6 +5,7 @@ import 'package:test_database_floor/screens/currency/add_currency.dart';
 import 'package:test_database_floor/screens/currency/update_currency.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/states.dart';
+import 'package:test_database_floor/widget/custom_appBar.dart';
 
 class CurrencyHome extends StatelessWidget {
 
@@ -26,10 +27,9 @@ class CurrencyHome extends StatelessWidget {
 
           CurrencyCubit cubit = CurrencyCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
-                title:
-                Text('My Contact')
-            ),
+            appBar: CustomAppBar(
+                Icon(Icons.wallet_giftcard),
+                'My Currency'),
             body: ConditionalBuilder(
               condition: true,
               fallback: (context) => Center(child: CircularProgressIndicator(),),
