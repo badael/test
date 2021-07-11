@@ -12,19 +12,16 @@ import 'package:test_database_floor/services/wallet_cubit/states.dart';
 import 'package:test_database_floor/screens/wallet/updateWallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
-import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 class TransactionHome extends StatelessWidget {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => TransactionCubit()..createDatabase(),
+          create: (BuildContext context) =>
+              TransactionCubit()..createDatabase(),
         ),
         BlocProvider(
           create: (BuildContext context) => ExchangeCubit()..createDatabase(),
@@ -36,49 +33,51 @@ class TransactionHome extends StatelessWidget {
           create: (BuildContext context) => WalletCubit()..createDatabase(),
         ),
       ],
-
-      child: BlocConsumer<TransactionCubit,TransactionStates>(
-        listener: (BuildContext context,TransactionStates state){},
-        builder: (BuildContext context, TransactionStates state){
-
+      child: BlocConsumer<TransactionCubit, TransactionStates>(
+        listener: (BuildContext context, TransactionStates state) {},
+        builder: (BuildContext context, TransactionStates state) {
           TransactionCubit transactionCubit = TransactionCubit.get(context);
           ContactCubit contactCubit = ContactCubit.get(context);
           ExchangeCubit exchangeCubit = ExchangeCubit.get(context);
           WalletCubit walletCubit = WalletCubit.get(context);
           return Scaffold(
-            appBar: CustomAppBar(
-                Icon(Icons.wallet_giftcard),
-                'Transaction'),
+            appBar: customAppBar(
+                icon: Icon(Icons.money), title: Text(' transaction')),
             body: ConditionalBuilder(
               condition: true,
-              fallback: (context) => Center(child: CircularProgressIndicator(),),
+              fallback: (context) => Center(
+                child: CircularProgressIndicator(),
+              ),
               builder: (context) {
-
                 return ListView.builder(
                   itemCount: transactionCubit.transactions.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                         child: ListTile(
-                          contentPadding: EdgeInsets.all(8.0),
-                          title: Text(transactionCubit.transactions[index].total),
-                          leading: IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
+                      contentPadding: EdgeInsets.all(8.0),
+                      title: Text(transactionCubit.transactions[index].total),
+                      leading: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
 
-                              transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
-
-                            },
-                          ),
-                          // subtitle:BlocConsumer<WalletCubit,WalletStates>(
-                          //     listener: (BuildContext context,WalletStates state){},
-                          //     builder: (BuildContext context, WalletStates state){
-                          //       return Text(walletCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
-                          //     }
-                          // ) ,
-                          onTap: () => Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => UpdateTransaction(transactionId:transactionCubit.transactions[index].id ))),
-                        ));
+                          transactionCubit.deleteTransactionFromDatabase(
+                              id: transactionCubit.transactions[index].id);
+                        },
+                      ),
+                      // subtitle:BlocConsumer<WalletCubit,WalletStates>(
+                      //     listener: (BuildContext context,WalletStates state){},
+                      //     builder: (BuildContext context, WalletStates state){
+                      //       return Text(walletCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
+                      //     }
+                      // ) ,
+                      onTap: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpdateTransaction(
+                                  transactionId: transactionCubit
+                                      .transactions[index].id))),
+                    ));
                   },
                 );
                 ;

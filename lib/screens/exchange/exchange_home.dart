@@ -5,13 +5,9 @@ import 'package:test_database_floor/screens/exchange/add_exchange.dart';
 import 'package:test_database_floor/screens/exchange/update_exchange.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
-import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 class ExchangeHome extends StatelessWidget {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -20,38 +16,41 @@ class ExchangeHome extends StatelessWidget {
           create: (BuildContext context) => ExchangeCubit()..createDatabase(),
         ),
       ],
-
-      child: BlocConsumer<ExchangeCubit,ExchangeStates>(
-        listener: (BuildContext context,ExchangeStates state){},
-        builder: (BuildContext context, ExchangeStates state){
-
+      child: BlocConsumer<ExchangeCubit, ExchangeStates>(
+        listener: (BuildContext context, ExchangeStates state) {},
+        builder: (BuildContext context, ExchangeStates state) {
           ExchangeCubit cubit = ExchangeCubit.get(context);
           return Scaffold(
-            appBar:CustomAppBar(
-                Icon(Icons.wallet_giftcard),
-                'Exchange Category'),
+            appBar: customAppBar(
+                icon: Icon(Icons.money), title: Text(' exchange category')),
             body: ConditionalBuilder(
               condition: true,
-              fallback: (context) => Center(child: CircularProgressIndicator(),),
+              fallback: (context) => Center(
+                child: CircularProgressIndicator(),
+              ),
               builder: (context) {
-
                 return ListView.builder(
                   itemCount: cubit.exchanges.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                         child: ListTile(
-                          contentPadding: EdgeInsets.all(8.0),
-                          title: Text(cubit.exchanges[index].name),
-                          leading: IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              cubit.deleteExchangeFromDatabase(id: cubit.exchanges[index].id);
-
-                            },
-                          ),
-                          onTap: () => Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => UpdateExchange(exchangeId:cubit.exchanges[index].id ,exchangeName: cubit.exchanges[index].name,))),
-                        ));
+                      contentPadding: EdgeInsets.all(8.0),
+                      title: Text(cubit.exchanges[index].name),
+                      leading: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          cubit.deleteExchangeFromDatabase(
+                              id: cubit.exchanges[index].id);
+                        },
+                      ),
+                      onTap: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpdateExchange(
+                                    exchangeId: cubit.exchanges[index].id,
+                                    exchangeName: cubit.exchanges[index].name,
+                                  ))),
+                    ));
                   },
                 );
                 ;
