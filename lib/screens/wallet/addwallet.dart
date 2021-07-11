@@ -8,6 +8,7 @@ import 'package:test_database_floor/services/currency_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/custom_textFormField.dart';
+import 'package:test_database_floor/widget/text_form.dart';
 
 import '../../services/wallet_cubit/states.dart';
 import '../../services/wallet_cubit/cubit.dart';
@@ -51,13 +52,23 @@ class Addwallet extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
+              defaultFormField(
+                label: 'Wallet',
+                controller: nameController,
+                prefix: Icons.wallet_giftcard,
+                type: TextInputType.text,
+                isClickable: true,
+                onChange: (String value){},
+                onSubmit: (String value){},
+                onTap: (){}
+              ),
 
-              CustomTextFormField(
-                  'Name Wallet',
-                  nameController,
-                  Icon(Icons.drive_file_rename_outline),
-                      (){},
-                      (){}),
+              // CustomTextFormField(
+              //     'Name Wallet',
+              //     nameController,
+              //     Icon(Icons.drive_file_rename_outline),
+              //         (){},
+              //         (){}),
               // TextFormField(
               //   controller: nameController,
               //   decoration: const InputDecoration(
