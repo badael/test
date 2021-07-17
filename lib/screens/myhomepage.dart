@@ -9,6 +9,7 @@ import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/wallet_cubit/cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/widgets.dart';
 
 class MyHomePage extends StatelessWidget {
 
@@ -36,55 +37,65 @@ class MyHomePage extends StatelessWidget {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
-                color: Colors.black12,
-                child: TextButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => WalletHome())),
-                    child: Text('Wallet')),
+                color: Colors.amberAccent,
+                child:customRaisedButton(text: 'Wallet', onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WalletHome()))),
+                // TextButton(
+                //     onPressed: () => Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => WalletHome())),
+                //     child: Text('Wallet')),
               ),
               SizedBox(
                 height: 5,
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
-                color: Colors.black12,
-                child: TextButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ContactHome())),
-                    child: Text('Contact')),
+                color: Colors.amberAccent,
+                child: customRaisedButton(text: 'Contact', onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ContactHome()))),
+              //   TextButton(
+              //       onPressed: () => Navigator.push(context,
+              //           MaterialPageRoute(builder: (context) => ContactHome())),
+              //       child: Text('Contact')),
               ),
               SizedBox(
                 height: 5,
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
-                color: Colors.black12,
-                child: TextButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ExchangeHome())),
-                    child: Text('Exchange')),
+                color: Colors.amberAccent,
+                child:customRaisedButton(text: 'Exchange', onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ExchangeHome()))),
+                // TextButton(
+                //     onPressed: () => Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => ExchangeHome())),
+                //     child: Text('Exchange')),
               ),
               SizedBox(
                 height: 5,
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
-                color: Colors.black12,
-                child: TextButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CurrencyHome())),
-                    child: Text('Currency')),
+                color: Colors.amberAccent,
+                child: customRaisedButton(text: 'Currency', onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CurrencyHome()))),
+                // TextButton(
+                //     onPressed: () => Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => CurrencyHome())),
+                //     child: Text('Currency')),
               ),
               SizedBox(
                 height: 5,
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
-                color: Colors.black12,
-                child: TextButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => TransactionHome())),
-                    child: Text('Transaction')),
+                color: Colors.amberAccent,
+                child:customRaisedButton(text: 'Transaction', onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TransactionHome()))),
+                // TextButton(
+                //     onPressed: () => Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => TransactionHome())),
+                //     child: Text('Transaction')),
               ),
             ],
           )),

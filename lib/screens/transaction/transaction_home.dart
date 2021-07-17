@@ -13,6 +13,7 @@ import 'package:test_database_floor/screens/wallet/updateWallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/widgets.dart';
 
 class TransactionHome extends StatelessWidget {
 
@@ -61,14 +62,16 @@ class TransactionHome extends StatelessWidget {
                         child: ListTile(
                           contentPadding: EdgeInsets.all(8.0),
                           title: Text(transactionCubit.transactions[index].total),
+
                           leading: IconButton(
                             icon: Icon(Icons.delete),
                             onPressed: () {
                               // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
-
-                              transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
+                              // transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
+                              transactionCubit.getmixFromDatabase();
 
                             },
+
                           ),
                           // subtitle:BlocConsumer<WalletCubit,WalletStates>(
                           //     listener: (BuildContext context,WalletStates state){},
@@ -112,11 +115,13 @@ class TransactionHome extends StatelessWidget {
             //     }
             //   },
             // ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => AddTransaction())),
-            ),
+            floatingActionButton:customFloatinActionButton(icon: Icon(Icons.add), onPressed: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AddTransaction())),)
+            // FloatingActionButton(
+            //   child: Icon(Icons.add),
+            //   onPressed: () => Navigator.pushReplacement(context,
+            //       MaterialPageRoute(builder: (context) => AddTransaction())),
+            // ),
           );
         },
       ),

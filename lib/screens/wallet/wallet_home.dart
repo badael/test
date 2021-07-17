@@ -7,6 +7,7 @@ import 'package:test_database_floor/screens/wallet/updateWallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/widgets.dart';
 
 import 'addwallet.dart';
 
@@ -105,11 +106,13 @@ class WalletHome extends StatelessWidget {
             //     }
             //   },
             // ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Addwallet())),
-            ),
+            floatingActionButton:customFloatinActionButton(icon: Icon(Icons.add), onPressed: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => Addwallet())),)
+            // FloatingActionButton(
+            //   child: Icon(Icons.add),
+            //   onPressed: () => Navigator.pushReplacement(context,
+            //       MaterialPageRoute(builder: (context) => Addwallet())),
+            // ),
           );
         },
       ),
