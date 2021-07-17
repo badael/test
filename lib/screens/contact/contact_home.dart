@@ -6,6 +6,7 @@ import 'package:test_database_floor/services/contact_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/widgets.dart';
 
 class ContactHome extends StatelessWidget {
 
@@ -85,11 +86,13 @@ class ContactHome extends StatelessWidget {
             //     }
             //   },
             // ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => AddContact())),
-            ),
+            floatingActionButton: customFloatinActionButton(icon: Icon(Icons.add), onPressed: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AddContact())),)
+            // FloatingActionButton(
+            //   child: Icon(Icons.add),
+            //   onPressed: () => Navigator.pushReplacement(context,
+            //       MaterialPageRoute(builder: (context) => AddContact())),
+            // ),
           );
         },
       ),

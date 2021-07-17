@@ -6,6 +6,7 @@ import 'package:test_database_floor/screens/exchange/update_exchange.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/widgets.dart';
 
 class ExchangeHome extends StatelessWidget {
 
@@ -85,11 +86,13 @@ class ExchangeHome extends StatelessWidget {
             //     }
             //   },
             // ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => AddExchange())),
-            ),
+            floatingActionButton:customFloatinActionButton(icon: Icon(Icons.add), onPressed: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AddExchange())),)
+            // FloatingActionButton(
+            //   child: Icon(Icons.add),
+            //   onPressed: () => Navigator.pushReplacement(context,
+            //       MaterialPageRoute(builder: (context) => AddExchange())),
+            // ),
           );
         },
       ),

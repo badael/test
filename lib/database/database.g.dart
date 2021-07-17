@@ -502,6 +502,14 @@ class _$TransactionDao extends TransactionDao {
   }
 
   @override
+  Future<Mix> mixData() async {
+    return _queryAdapter.query('SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE  t.wallet_id=w.id and t.exchange_id = e.id and t.contact_id =c.id',
+
+     mapper: (Map<String, dynamic> row) =>Mix(row['transactionId'] as int, row['walletName'] as String, row['contactName'] as String, row['exchangeCategoryName'] as String, row['transactionTotal'] as String, row['transactionPaid'] as String, row['transactionRest'] as String, row['transactionDate'] as String, row['transactionIsIncome'] as String, row['transactionDescription'] as String));
+
+  }
+
+  @override
   Future<void> insertTransaction(Transaction transaction) async {
     await _transactionInsertionAdapter.insert(transaction, OnConflictStrategy.abort);
   }

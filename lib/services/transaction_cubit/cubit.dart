@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/database/database.dart';
+import 'package:test_database_floor/models/mix_data.dart';
 import 'package:test_database_floor/models/transaction.dart';
 import 'package:test_database_floor/services/dao/dao_transaction.dart';
 import 'package:test_database_floor/services/transaction_cubit/states.dart';
@@ -14,6 +15,7 @@ class TransactionCubit extends Cubit<TransactionStates>{
   AppDatabase database ;
   TransactionDao dao  ;
   List<Transaction> transactions = [];
+  Mix mix ;
   int lastId ;
 
   void createDatabase(){
@@ -42,6 +44,22 @@ class TransactionCubit extends Cubit<TransactionStates>{
 
     }).catchError((onError){
       print('2222222222222 $onError');
+    });
+  }
+
+  void getmixFromDatabase(){
+    this.dao.mixData().then((value) {
+      print('111111111111111111 $value');
+      mix = value;
+      // if(value.length > 0){
+      //   lastId = value[value.length -1].id;
+      // }else{
+      //   lastId = 0;
+      // }
+
+      emit(GetTransactionsFromDatabaseState());
+
+
     });
   }
 

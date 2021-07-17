@@ -8,6 +8,7 @@ import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:test_database_floor/models/contact.dart';
 import 'package:test_database_floor/models/currency.dart';
 import 'package:test_database_floor/models/exchange_category.dart';
+import 'package:test_database_floor/models/mix_data.dart';
 import 'package:test_database_floor/models/transaction.dart';
 import 'package:test_database_floor/models/wallet.dart';
 import 'package:test_database_floor/services/dao/dao_contact.dart';

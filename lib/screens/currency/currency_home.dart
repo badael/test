@@ -6,6 +6,7 @@ import 'package:test_database_floor/screens/currency/update_currency.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/states.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
+import 'package:test_database_floor/widget/widgets.dart';
 
 class CurrencyHome extends StatelessWidget {
 
@@ -85,11 +86,13 @@ class CurrencyHome extends StatelessWidget {
             //     }
             //   },
             // ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => AddCurrency())),
-            ),
+            floatingActionButton:customFloatinActionButton(icon: Icon(Icons.add), onPressed: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AddCurrency())),)
+            // FloatingActionButton(
+            //   child: Icon(Icons.add),
+            //   onPressed: () => Navigator.pushReplacement(context,
+            //       MaterialPageRoute(builder: (context) => AddCurrency())),
+            // ),
           );
         },
       ),
