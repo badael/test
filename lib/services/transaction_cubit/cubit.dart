@@ -49,7 +49,7 @@ class TransactionCubit extends Cubit<TransactionStates>{
 
   void getmixFromDatabase(){
     this.dao.mixData().then((value) {
-      print('111111111111111111 $value');
+      print('111111111111111111 ${value.walletName}');
       mix = value;
       // if(value.length > 0){
       //   lastId = value[value.length -1].id;

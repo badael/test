@@ -13,7 +13,7 @@ class Mix {
 
   final String transactionRest;
   final String transactionDate;
-  final String transactionIsIncome;
+  final int transactionIsIncome;
   final String transactionDescription;
 
   Mix(this.transactionId, this.walletName, this.contactName, this.exchangeCategoryName, this.transactionTotal, this.transactionPaid, this.transactionRest, this.transactionDate, this.transactionIsIncome, this.transactionDescription);
