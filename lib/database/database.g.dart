@@ -503,8 +503,8 @@ class _$TransactionDao extends TransactionDao {
 
   @override
   Future<Mix> mixData() async {
-    return _queryAdapter.query('SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.id = ?',
-        arguments: <dynamic>[1],
+    return _queryAdapter.query('SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.id = ? and w.id = ? and c.id = ? and e.id =?',
+        arguments: <dynamic>[1,1,1,1],
      mapper: (Map<String, dynamic> row) =>Mix(row['id'] as int, row['name_wallet'] as String, row['name'] as String, row['name_exchange_category'] as String, row['total'] as String, row['paid'] as String, row['rest'] as String, row['description'] as String, row['is_income'] as int, row['transaction_date'] as String));
 
   }
