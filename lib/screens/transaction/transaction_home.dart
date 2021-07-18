@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/screens/transaction/add_transaction.dart';
 import 'package:test_database_floor/screens/transaction/update_transaction.dart';
@@ -69,6 +71,20 @@ class TransactionHome extends StatelessWidget {
                               // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
                               // transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
                               transactionCubit.getmixFromDatabase();
+                              Timer(Duration(seconds: 1), () {
+                                // 5 seconds over, navigate to Page2.
+                                _showMyDialog(
+                                    context,
+                                    transactionCubit.mix.walletName,
+                                    transactionCubit.mix.transactionTotal,
+                                    transactionCubit.mix.transactionRest,
+                                    transactionCubit.mix.transactionPaid,
+                                    transactionCubit.mix.transactionDescription,
+                                    transactionCubit.mix.transactionDate,
+                                    transactionCubit.mix.contactName,
+                                    transactionCubit.mix.exchangeCategoryName
+                                );
+                              });
 
                             },
 
@@ -125,6 +141,38 @@ class TransactionHome extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+  Future<void> _showMyDialog(context,String walletName,String total,rest,paid,desc,date,contact,category) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('wallet is: $walletName'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children:  <Widget>[
+                Text('total is : $total .'),
+                Text('rest is : $rest .'),
+                Text('paid is : $paid .'),
+                Text('desc is : $desc .'),
+                Text('date is : $date .'),
+                Text('contact is : $contact .'),
+                Text('category is : $category .'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
