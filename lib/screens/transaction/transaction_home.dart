@@ -61,42 +61,54 @@ class TransactionHome extends StatelessWidget {
                   itemCount: transactionCubit.transactions.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
-                        child: ListTile(
-                          contentPadding: EdgeInsets.all(8.0),
-                          title: Text(transactionCubit.transactions[index].total),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              contentPadding: EdgeInsets.all(8.0),
+                              title: Text(transactionCubit.transactions[index].total),
 
-                          leading: IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
-                              // transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
-                              transactionCubit.getmixFromDatabase();
-                              Timer(Duration(seconds: 1), () {
-                                // 5 seconds over, navigate to Page2.
-                                _showMyDialog(
-                                    context,
-                                    transactionCubit.mix.walletName,
-                                    transactionCubit.mix.transactionTotal,
-                                    transactionCubit.mix.transactionRest,
-                                    transactionCubit.mix.transactionPaid,
-                                    transactionCubit.mix.transactionDescription,
-                                    transactionCubit.mix.transactionDate,
-                                    transactionCubit.mix.contactName,
-                                    transactionCubit.mix.exchangeCategoryName
-                                );
-                              });
+                              leading: IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
+                                  transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
+                                  // transactionCubit.getmixesFromDatabase();
+                                  // Timer(Duration(seconds: 1), () {
+                                  //   // 5 seconds over, navigate to Page2.
+                                  //   _showMyDialog(
+                                  //       context,
+                                  //       transactionCubit.mix.walletName,
+                                  //       transactionCubit.mix.transactionTotal,
+                                  //       transactionCubit.mix.transactionRest,
+                                  //       transactionCubit.mix.transactionPaid,
+                                  //       transactionCubit.mix.transactionDescription,
+                                  //       transactionCubit.mix.transactionDate,
+                                  //       transactionCubit.mix.contactName,
+                                  //       transactionCubit.mix.exchangeCategoryName
+                                  //   );
+                                  // });
 
-                            },
+                                },
 
-                          ),
-                          // subtitle:BlocConsumer<WalletCubit,WalletStates>(
-                          //     listener: (BuildContext context,WalletStates state){},
-                          //     builder: (BuildContext context, WalletStates state){
-                          //       return Text(walletCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
-                          //     }
-                          // ) ,
-                          onTap: () => Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => UpdateTransaction(transactionId:transactionCubit.transactions[index].id ))),
+                              ),
+                              // subtitle:BlocConsumer<WalletCubit,WalletStates>(
+                              //     listener: (BuildContext context,WalletStates state){},
+                              //     builder: (BuildContext context, WalletStates state){
+                              //       return Text(walletCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
+                              //     }
+                              // ) ,
+                              onTap: () => Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) => UpdateTransaction(transactionId:transactionCubit.transactions[index].id ))),
+                            ),
+                            Text('paid is : ${transactionCubit.transactions[index].paid}'),
+                            Text('rest is : ${transactionCubit.transactions[index].rest}'),
+                            Text('des is : ${transactionCubit.transactions[index].description}'),
+                            Text('wallet id is : ${transactionCubit.transactions[index].walletId}'),
+                            Text('contact id is : ${transactionCubit.transactions[index].contactId}'),
+                            Text('category id is : ${transactionCubit.transactions[index].exchangeId}'),
+                            Text('date is : ${transactionCubit.transactions[index].transactionDate}'),
+                            Text('income is : ${transactionCubit.transactions[index].isIncome}'),
+                          ],
                         ));
                   },
                 );

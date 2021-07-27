@@ -88,7 +88,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `wallet` (`id` INTEGER, `name_wallet` TEXT,`balance` TEXT,`icon` TEXT, `currency_id` INTEGER,`is_appear` INTEGER,`is_active` INTEGER, FOREIGN KEY (`currency_id`) REFERENCES `wallet` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `wallet` (`id` INTEGER, `name_wallet` TEXT,`balance` TEXT,`icon` TEXT, `currency_id` INTEGER,`is_appear` INTEGER,`is_active` INTEGER, FOREIGN KEY (`currency_id`) REFERENCES `Currency` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Currency` (`id` INTEGER, `name` TEXT, `code` TEXT, `icon` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
@@ -447,6 +447,9 @@ class _$TransactionDao extends TransactionDao {
               'is_active': item.isActive,
               'is_appear': item.isAppear,
               'is_income': item.isIncome,
+              'contact_id' : item.contactId,
+              'wallet_id' : item.walletId,
+              'exchange_id' : item.exchangeId
             }),
         _transactionUpdateAdapter = UpdateAdapter(
             database,
@@ -461,7 +464,10 @@ class _$TransactionDao extends TransactionDao {
               'description': item.description,
               'is_active': item.isActive,
               'is_appear': item.isAppear,
-              'is_income': item.isIncome,},
+              'is_income': item.isIncome,
+              'contact_id' : item.contactId,
+              'wallet_id' : item.walletId,
+              'exchange_id' : item.exchangeId },
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -510,13 +516,28 @@ class _$TransactionDao extends TransactionDao {
   }
 
   @override
+  Future<List<Mix>> mixesData() async{
+    return _queryAdapter.queryList('SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e where t.wallet_id=w.id and t.contact_id=c.id and t.exchange_id=e.id GROUP By t.id',
+        mapper: (Map<String, dynamic> row) =>Mix(row['id'] as int, row['name_wallet'] as String, row['name'] as String, row['name_exchange_category'] as String, row['total'] as String, row['paid'] as String, row['rest'] as String, row['description'] as String, row['is_income'] as int, row['transaction_date'] as String));
+
+  }
+
+  @override
+  Future<List<Mix>> transactionByContact(int contactId){
+    return _queryAdapter.queryList('SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and c.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY c.name',
+        arguments: <dynamic>[contactId],
+        mapper: (Map<String, dynamic> row) =>Mix(row['id'] as int, row['name_wallet'] as String, row['name'] as String, row['name_exchange_category'] as String, row['total'] as String, row['paid'] as String, row['rest'] as String, row['description'] as String, row['is_income'] as int, row['transaction_date'] as String));
+
+  }
+
+  @override
   Future<void> insertTransaction(Transaction transaction) async {
     await _transactionInsertionAdapter.insert(transaction, OnConflictStrategy.abort);
   }
 
   @override
   Future<Transaction> deleteTransaction(int id) async {
-    return _queryAdapter.query('DELETE FROM transaction WHERE id = ?',
+    return _queryAdapter.query('DELETE FROM "transaction" WHERE id = ?',
         arguments: <dynamic>[id],
         mapper: (Map<String, dynamic> row) =>
             Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transaction_date'] as String, row['description'] as String, row['isActive'] as int, row['isAppear'] as int, row['isIncome'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int));
@@ -529,7 +550,7 @@ class _$TransactionDao extends TransactionDao {
 
   @override
   Future<List<Transaction>> retrieveTransactions() {
-    return _queryAdapter.queryList('SELECT * FROM transaction',
+    return _queryAdapter.queryList('SELECT * FROM "transaction"',
         mapper: (Map<String, dynamic> row) =>
             Transaction(row['id'] as int,  row['total'] as String,  row['paid'] as String,row['rest'] as String, row['transaction_date'] as String, row['description'] as String, row['is_active'] as int, row['is_appear'] as int, row['is_income'] as int, row['exchange_id'] as int, row['wallet_id'] as int, row['contact_id'] as int)
     );

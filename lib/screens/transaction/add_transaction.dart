@@ -340,17 +340,26 @@ class AddTransaction extends StatelessWidget {
               FlatButton(
                   child: Text('save'),
                   onPressed: () {
-                    TransactionCubit.get(context).insertToDatabase(
+                    int c_id = ContactCubit.get(context).getContactId(contactName: contactIdController.text);
+                    int e_id = ExchangeCubit.get(context).getExchangeId(exchangeName: exchangeIdController.text);
+                    int w_id = WalletCubit.get(context).getWalletId(walletName: walletIdController.text);
+                    if(e_id != null && w_id != null && c_id != null){
+                      print('c_id : $c_id');
+                      print('w_id : $w_id');
+                      print('e_id : $e_id');
+                      TransactionCubit.get(context).insertToDatabase(
                         isId: isID,
-                        contactId: ContactCubit.get(context).getContactId(contactName: contactIdController.text),
+                        contactId:c_id ,
                         description: descriptionController.text,
-                        exchangeId: ExchangeCubit.get(context).getExchangeId(exchangeName: exchangeIdController.text),
+                        exchangeId:e_id ,
                         paid: paidController.text,
                         rest: restController.text,
                         total: totalController.text,
                         transactionDate: transactionDateController.text,
-                        walletId: WalletCubit.get(context).getWalletId(walletName: walletIdController.text),
-                    );
+                        walletId:w_id ,
+                      );
+                    }
+
 
 
                   })

@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/widgets.dart';
 
+import 'report/report_home.dart';
+
 class MyHomePage extends StatelessWidget {
 
 
@@ -92,6 +94,19 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.amberAccent,
                 child:customRaisedButton(text: 'Transaction', onPressed: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => TransactionHome()))),
+                // TextButton(
+                //     onPressed: () => Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => TransactionHome())),
+                //     child: Text('Transaction')),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                color: Colors.amberAccent,
+                child:customRaisedButton(text: 'Reports', onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ReportHome()))),
                 // TextButton(
                 //     onPressed: () => Navigator.push(context,
                 //         MaterialPageRoute(builder: (context) => TransactionHome())),
