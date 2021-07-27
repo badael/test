@@ -9,10 +9,6 @@ import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/widgets.dart';
 
 class ContactHome extends StatelessWidget {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -21,79 +17,88 @@ class ContactHome extends StatelessWidget {
           create: (BuildContext context) => ContactCubit()..createDatabase(),
         ),
       ],
-
-      child: BlocConsumer<ContactCubit,ContactStates>(
-        listener: (BuildContext context,ContactStates state){},
-        builder: (BuildContext context, ContactStates state){
-
+      child: BlocConsumer<ContactCubit, ContactStates>(
+        listener: (BuildContext context, ContactStates state) {},
+        builder: (BuildContext context, ContactStates state) {
           ContactCubit cubit = ContactCubit.get(context);
           return Scaffold(
-            appBar: CustomAppBar(
-                Icon(Icons.wallet_giftcard),
-                'My Contact'),
-            body: ConditionalBuilder(
-              condition: true,
-              fallback: (context) => Center(child: CircularProgressIndicator(),),
-              builder: (context) {
-
-                return ListView.builder(
-                  itemCount: cubit.contacts.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                        child: ListTile(
-                          contentPadding: EdgeInsets.all(8.0),
-                          title: Text(cubit.contacts[index].name),
-                          leading: IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              cubit.deleteContactFromDatabase(id: cubit.contacts[index].id);
-
-                            },
-                          ),
-                          onTap: () => Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => UpdateContact(contactId:cubit.contacts[index].id ,contactName: cubit.contacts[index].name,))),
-                        ));
-                  },
-                );
-                ;
-              },
-            ),
-            // Text(basselCubit.bassels[index].name)
-            // FutureBuilder(
-            //   future: cubit.dao.retrieveUsers(),
-            //   builder: (BuildContext context, AsyncSnapshot<List<Wallet>> snapshot) {
-            //     if (snapshot.hasData) {
-            //       return ListView.builder(
-            //         itemCount: snapshot.data?.length,
-            //         itemBuilder: (BuildContext context, int index) {
-            //           return Card(
-            //               child: ListTile(
-            //                 contentPadding: EdgeInsets.all(8.0),
-            //                 title: Text(snapshot.data[index].name),
-            //                 leading: IconButton(
-            //                   icon: Icon(Icons.delete),
-            //                   onPressed: () {
-            //
-            //                       cubit.dao.deleteUser(snapshot.data[index].id);
-            //
-            //                   },
-            //                 ),
-            //               ));
-            //         },
-            //       );
-            //     } else {
-            //       return Center(child: CircularProgressIndicator());
-            //     }
-            //   },
-            // ),
-            floatingActionButton: customFloatinActionButton(icon: Icon(Icons.add), onPressed: () => Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => AddContact())),)
-            // FloatingActionButton(
-            //   child: Icon(Icons.add),
-            //   onPressed: () => Navigator.pushReplacement(context,
-            //       MaterialPageRoute(builder: (context) => AddContact())),
-            // ),
-          );
+              appBar: CustomAppBar(Icon(Icons.wallet_giftcard), 'My Contact'),
+              body: ConditionalBuilder(
+                condition: true,
+                fallback: (context) => Center(
+                  child: CircularProgressIndicator(),
+                ),
+                builder: (context) {
+                  return ListView.builder(
+                    itemCount: cubit.contacts.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                          child: ListTile(
+                        contentPadding: EdgeInsets.all(8.0),
+                        title: Row(
+                          children: [
+                            Text(cubit.contacts[index].name),
+                          ],
+                        ),
+                        leading: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            cubit.deleteContactFromDatabase(
+                                id: cubit.contacts[index].id);
+                          },
+                        ),
+                        onTap: () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UpdateContact(
+                                      contactId: cubit.contacts[index].id,
+                                      contactName: cubit.contacts[index].name,
+                                    ))),
+                      ));
+                    },
+                  );
+                  ;
+                },
+              ),
+              // Text(basselCubit.bassels[index].name)
+              // FutureBuilder(
+              //   future: cubit.dao.retrieveUsers(),
+              //   builder: (BuildContext context, AsyncSnapshot<List<Wallet>> snapshot) {
+              //     if (snapshot.hasData) {
+              //       return ListView.builder(
+              //         itemCount: snapshot.data?.length,
+              //         itemBuilder: (BuildContext context, int index) {
+              //           return Card(
+              //               child: ListTile(
+              //                 contentPadding: EdgeInsets.all(8.0),
+              //                 title: Text(snapshot.data[index].name),
+              //                 leading: IconButton(
+              //                   icon: Icon(Icons.delete),
+              //                   onPressed: () {
+              //
+              //                       cubit.dao.deleteUser(snapshot.data[index].id);
+              //
+              //                   },
+              //                 ),
+              //               ));
+              //         },
+              //       );
+              //     } else {
+              //       return Center(child: CircularProgressIndicator());
+              //     }
+              //   },
+              // ),
+              floatingActionButton: customFloatinActionButton(
+                icon: Icon(Icons.add),
+                onPressed: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => AddContact())),
+              )
+              // FloatingActionButton(
+              //   child: Icon(Icons.add),
+              //   onPressed: () => Navigator.pushReplacement(context,
+              //       MaterialPageRoute(builder: (context) => AddContact())),
+              // ),
+              );
         },
       ),
     );

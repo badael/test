@@ -9,8 +9,6 @@ import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/custom_textFormField.dart';
 
 class AddContact extends StatelessWidget {
-
-
   TextEditingController nameController = TextEditingController();
 
   int isID;
@@ -18,33 +16,27 @@ class AddContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-          Icon(Icons.wallet_giftcard),
-          'Add Contact'),
-      body:MultiBlocProvider(
-        providers:[
+      appBar: CustomAppBar(Icon(Icons.wallet_giftcard), 'Add Contact'),
+      body: MultiBlocProvider(
+        providers: [
           BlocProvider(
             create: (BuildContext context) => ContactCubit()..createDatabase(),
           ),
         ],
-
-
-        child: BlocConsumer<ContactCubit,ContactStates>(
-          listener: (context,ContactStates state){
-            if(state is InsertContactsToDatabaseState){
+        child: BlocConsumer<ContactCubit, ContactStates>(
+          listener: (context, ContactStates state) {
+            if (state is InsertContactsToDatabaseState) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => ContactHome()));
             }
           },
-          builder: (context,state){
+          builder: (context, state) {
             return ListView(children: [
-              SizedBox(height: 20,),
-              CustomTextFormField(
-                  'Name Contact',
-                  nameController,
-                  Icon(Icons.person),
-                      (){},
-                      (){}),
+              SizedBox(
+                height: 20,
+              ),
+              CustomTextFormField('Name Contact', nameController,
+                  Icon(Icons.person), () {}, () {}),
               // TextFormField(
               //   controller: nameController,
               //   decoration: const InputDecoration(
@@ -60,11 +52,9 @@ class AddContact extends StatelessWidget {
                   child: Text('save'),
                   onPressed: () {
                     ContactCubit.get(context).insertToDatabase(
-                        isId: isID,
-                        contactName: nameController.text,
+                      isId: isID,
+                      contactName: nameController.text,
                     );
-
-
                   })
             ]);
           },
@@ -73,4 +63,3 @@ class AddContact extends StatelessWidget {
     );
   }
 }
-

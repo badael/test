@@ -13,43 +13,37 @@ class UpdateCurrency extends StatelessWidget {
 
   TextEditingController nameController = TextEditingController();
 
-
-
-
-  UpdateCurrency({Key key, this.currencyId,this.currencyName}) : super(key: key);
-
+  UpdateCurrency({Key key, this.currencyId, this.currencyName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-          Icon(Icons.wallet_giftcard),
-          'Update Currency'),
-      body:MultiBlocProvider(
-        providers:[
+      appBar: CustomAppBar(Icon(Icons.wallet_giftcard), 'Update Currency'),
+      body: MultiBlocProvider(
+        providers: [
           BlocProvider(
             create: (BuildContext context) => CurrencyCubit()..createDatabase(),
           ),
         ],
-
-
-        child: BlocConsumer<CurrencyCubit,CurrencyStates>(
-          listener: (context,state){
-            if(state is UpdateCurrencyToDatabaseState){
+        child: BlocConsumer<CurrencyCubit, CurrencyStates>(
+          listener: (context, state) {
+            if (state is UpdateCurrencyToDatabaseState) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => CurrencyHome()));
             }
           },
-          builder: (context,state){
+          builder: (context, state) {
             return ListView(children: [
-
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               CustomTextFormField(
                   'Name Currency',
-                  nameController,
+                  nameController = TextEditingController(text: '$currencyName'),
                   Icon(Icons.money),
-                      (){},
-                      (){}),
+                  () {},
+                  () {}),
               // TextFormField(
               //   controller: nameController,
               //   // initialValue: walletName,
@@ -67,10 +61,8 @@ class UpdateCurrency extends StatelessWidget {
                   onPressed: () {
                     CurrencyCubit.get(context).updateCurrencyDatabase(
                       isId: currencyId,
-                      currencyName:  nameController.text,
+                      currencyName: nameController.text,
                     );
-
-
                   })
             ]);
           },
@@ -79,4 +71,3 @@ class UpdateCurrency extends StatelessWidget {
     );
   }
 }
-
