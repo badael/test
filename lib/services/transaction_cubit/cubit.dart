@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/database/database.dart';
+import 'package:test_database_floor/models/contact.dart';
 import 'package:test_database_floor/models/mix_data.dart';
 import 'package:test_database_floor/models/transaction.dart';
 import 'package:test_database_floor/services/dao/dao_transaction.dart';
@@ -16,6 +17,8 @@ class TransactionCubit extends Cubit<TransactionStates>{
   TransactionDao dao  ;
   List<Transaction> transactions = [];
   Mix mix ;
+  List<Mix> mixes;
+  List<Mix> transactionByContact;
   int lastId ;
 
   void createDatabase(){
@@ -26,11 +29,13 @@ class TransactionCubit extends Cubit<TransactionStates>{
       emit(TransactionCreateDatabaseState());
 
       getTransactionsFromDatabase();
+
     });
   }
 
   void getTransactionsFromDatabase(){
     this.dao.findAllTransaction().then((value) {
+      getmixesFromDatabase();
       print('111111111111111111 $value');
       transactions = value;
       if(value.length > 0){
@@ -51,15 +56,27 @@ class TransactionCubit extends Cubit<TransactionStates>{
     this.dao.mixData().then((value) {
       print('111111111111111111 ${value.walletName}');
       mix = value;
-      // if(value.length > 0){
-      //   lastId = value[value.length -1].id;
-      // }else{
-      //   lastId = 0;
-      // }
-
       emit(GetTransactionsFromDatabaseState());
+    });
+  }
 
+  void getTransactionByContactFromDatabase({
+  @required int contactId
+}){
+    this.dao.transactionByContact(contactId).then((value) {
+      transactionByContact = value;
+      emit(GetTransactionsFromDatabaseState());
+    });
+  }
 
+  void getmixesFromDatabase(){
+    this.dao.mixesData().then((value) {
+      for(int i = 0 ; i <value.length ;i++){
+        print('111111111111111111 ${value[i].walletName},${value[i].exchangeCategoryName},${value[i].contactName}');
+      }
+      print('xxxxxxxxxxxxxxxxxxxxxx ${value.length}');
+      mixes = value;
+      emit(GetTransactionsFromDatabaseState());
     });
   }
 
@@ -76,6 +93,9 @@ class TransactionCubit extends Cubit<TransactionStates>{
     @required int walletId,
     @required int contactId,
   }){
+    print('ccccccc_id : $contactId');
+    print('wwwwwwwww_id : $walletId');
+    print('eeeeeeeeee_id : $exchangeId');
     dao.insertTransaction(Transaction(isId, total, paid, rest, transactionDate, description, 1, 1, 1, exchangeId, walletId, contactId)).then((value) {
       emit(InsertTransactionsToDatabaseState());
       getTransactionsFromDatabase();
