@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 Widget customFormField(
     {@required TextEditingController controller,
@@ -28,11 +29,19 @@ Widget customRaisedButton({
   @required String text,
   @required Function onPressed,
 }) {
-  return RaisedButton(
-    onPressed: onPressed,
-    color: Colors.amberAccent,
-    child: Text(text),
-    textColor: Colors.black,
+  return FlatButton(
+    shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.blue, width: 2.0)),
+    onPressed: onPressed(),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: Colors.blue,
+        fontSize: 18,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+    color: Colors.white,
   );
 }
 
@@ -131,80 +140,217 @@ Widget customCardTransaction({
   @required String payedMoney,
 }) {
   return Card(
+    margin: EdgeInsets.all(10),
     elevation: 5.0,
     child: Container(
       padding: EdgeInsets.all(10),
       color: Colors.grey[200],
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CircleAvatar(),
-              SizedBox(
-                width: 15,
-              ),
-              Text(titleExchange),
-              SizedBox(
-                width: 69,
-              ),
-              Text(datetime),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.delete),
-              ),
-            ],
+          Container(
+            padding: EdgeInsets.only(left: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: CircleAvatar(
+                          radius: 20.0,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          titleExchange,
+                          style: TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        datetime,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.delete,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           Divider(
             color: Colors.grey[400],
             endIndent: 20,
             indent: 20,
           ),
-          SizedBox(
-            height: 15,
-          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(),
-              SizedBox(
-                width: 15,
+              Container(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 18.0,
+                    ),
+                  ],
+                ),
               ),
-              Text(contact),
-              SizedBox(
-                width: 120,
+              Container(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text(
+                  titleExchange,
+                  style: TextStyle(fontSize: 12.0),
+                ),
               ),
-              IconButton(onPressed: () {}, icon: iconMoneyType),
-              Text(moneyType),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CircleAvatar(),
-              SizedBox(
-                width: 15,
-              ),
-              Text(note),
-              SizedBox(
-                width: 115,
-              ),
-              Text(totaleMoney),
-            ],
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: CircleAvatar(
+                        radius: 18.0,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        contact,
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 8.0),
+                      child: IconButton(onPressed: () {}, icon: iconMoneyType),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        moneyType,
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CircleAvatar(),
-              SizedBox(
-                width: 15,
-              ),
-              Text(attachments),
-              SizedBox(
-                width: 115,
-              ),
-              Text(payedMoney),
-            ],
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: CircleAvatar(
+                        radius: 18.0,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        note,
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        totaleMoney,
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0, top: 5.0),
+                      child: CircleAvatar(
+                        radius: 18.0,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        attachments,
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 8.0, bottom: 5.0),
+                            child: Text(
+                              payedMoney,
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 8.0, top: 8.0),
+                            child: Text(
+                              payedMoney,
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -220,42 +366,120 @@ Widget customContainerWallet({
   @required Function editMethod,
 }) {
   return Container(
-    height: 60,
+    padding: EdgeInsets.all(10),
     color: Colors.grey,
-    child: ListTile(
-      leading: Row(
+    child: Column(children: [
+      Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        verticalDirection: VerticalDirection.down,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          circleAvatar,
-          SizedBox(
-            width: 15,
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  padding: EdgeInsets.only(left: 8.0), child: circleAvatar),
+              Container(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  )),
+            ],
           ),
-          Text(title),
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: searchMethod(),
+                icon: Icon(
+                  Icons.search,
+                  size: 20,
+                ),
+              ),
+              IconButton(
+                onPressed: addMethod(),
+                icon: Icon(
+                  Icons.add,
+                  size: 20,
+                ),
+              ),
+              IconButton(
+                onPressed: editMethod(),
+                icon: Icon(
+                  Icons.edit,
+                  size: 20,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
-      trailing: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        verticalDirection: VerticalDirection.down,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(
-            onPressed: searchMethod(),
-            icon: Icon(Icons.search),
+    ]),
+  );
+}
+
+Widget customlinerIndicator({
+  @required double percent,
+  @required CircleAvatar icon,
+  @required String type,
+  @required Function choseIcon,
+  @required String totalExchange,
+}) {
+  return Container(
+    margin: EdgeInsets.all(5),
+    padding: EdgeInsets.all(5),
+    height: 100,
+    color: Colors.white,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                IconButton(iconSize: 40, onPressed: choseIcon(), icon: icon),
+                Text(
+                  type,
+                ),
+              ],
+            ),
+            Text(
+              '$totalExchange',
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        LinearPercentIndicator(
+          //leaner progress bar
+          animation: true,
+          animationDuration: 1000,
+          lineHeight: 20.0,
+          percent: percent / 100,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          leading: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Text(
+              "$percent  %",
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blue[400]),
+            ),
           ),
-          IconButton(
-            onPressed: addMethod(),
-            icon: Icon(Icons.add),
-          ),
-          IconButton(
-            onPressed: editMethod(),
-            icon: Icon(Icons.edit),
-          ),
-        ],
-      ),
+          linearStrokeCap: LinearStrokeCap.roundAll,
+          progressColor: Colors.blue[400],
+          backgroundColor: Colors.grey[300],
+        ),
+      ],
     ),
   );
 }
