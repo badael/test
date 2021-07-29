@@ -74,15 +74,6 @@ class AddTransaction extends StatelessWidget {
                       (){},
                       (){},
                   TextInputType.number),
-              // TextFormField(
-              //   controller: totalController,
-              //   keyboardType: TextInputType.number,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'total transaction',
-              //   ),
-              // ),
               SizedBox(
                 height: 50,
               ),
@@ -93,15 +84,6 @@ class AddTransaction extends StatelessWidget {
                       (){},
                       (){},
                   TextInputType.number),
-              // TextFormField(
-              //   controller: paidController,
-              //   keyboardType: TextInputType.number,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'paid',
-              //   ),
-              // ),
               SizedBox(
                 height: 50,
               ),
@@ -112,15 +94,6 @@ class AddTransaction extends StatelessWidget {
                       (){},
                       (){},
                   TextInputType.number),
-              // TextFormField(
-              //   controller: restController,
-              //   keyboardType: TextInputType.number,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'rest',
-              //   ),
-              // ),
               SizedBox(
                 height: 50,
               ),
@@ -131,15 +104,6 @@ class AddTransaction extends StatelessWidget {
                       (){},
                       (){},
                   TextInputType.text),
-              // TextFormField(
-              //   controller: transactionDateController,
-              //   keyboardType: TextInputType.datetime,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'transactionDate',
-              //   ),
-              // ),
               SizedBox(
                 height: 50,
               ),
@@ -150,15 +114,6 @@ class AddTransaction extends StatelessWidget {
                       (){},
                       (){},
                   TextInputType.text),
-              // TextFormField(
-              //   controller: descriptionController,
-              //   keyboardType: TextInputType.text,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'description',
-              //   ),
-              // ),
               SizedBox(
                 height: 50,
               ),
@@ -169,15 +124,6 @@ class AddTransaction extends StatelessWidget {
                       (){},
                       (){},
                   TextInputType.number),
-              // TextFormField(
-              //   controller: isIncomeController,
-              //   keyboardType: TextInputType.number,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'isIncome',
-              //   ),
-              // ),
               SizedBox(
                 height: 50,
               ),
@@ -357,24 +303,28 @@ class AddTransaction extends StatelessWidget {
                         int c_id = ContactCubit.get(context).getContactId(contactName: contactIdController.text);
                         int e_id = ExchangeCubit.get(context).getExchangeId(exchangeName: exchangeIdController.text);
                         int w_id = WalletCubit.get(context).getWalletId(walletName: walletIdController.text);
+                        String walletBalance = WalletCubit.get(context).getWalletBalance(walletName: walletIdController.text);
+                        int walBal = int.parse(walletBalance);
                         int income = int.parse(isIncomeController.text);
-                        print('/////////////////////////////////////////////////////////////// $income');
                         if(e_id != null && w_id != null && c_id != null){
                           print('c_id : $c_id');
                           print('w_id : $w_id');
                           print('e_id : $e_id');
-                          TransactionCubit.get(context).insertToDatabase(
-                            isId: isID,
-                            contactId:c_id ,
-                            description: descriptionController.text,
-                            exchangeId:e_id ,
-                            paid: paidController.text,
-                            rest: restController.text,
-                            total: totalController.text,
-                            isIncome : income ,
-                            transactionDate: transactionDateController.text,
-                            walletId:w_id ,
-                          );
+                          if (income == 1 ){
+                          if (int.parse(totalController.text) <= walBal)
+                          {
+                            TransactionCubit.get(context).insertToDatabase(
+                              isId: isID,
+                              contactId:c_id ,
+                              description: descriptionController.text,
+                              exchangeId:e_id ,
+                              paid: paidController.text,
+                              rest: restController.text,
+                              total: totalController.text,
+                              isIncome : income ,
+                              transactionDate: transactionDateController.text,
+                              walletId:w_id ,
+                            );
                             String walletBalance = WalletCubit.get(context).getWalletBalance(walletName: walletIdController.text);
                             int currencyId = WalletCubit.get(context).getWalletCurrency(walletName: walletIdController.text);
                             int newBalance = int.parse(walletBalance) - int.parse(totalController.text);
@@ -385,12 +335,35 @@ class AddTransaction extends StatelessWidget {
                                   walletBalance: '$newBalance' ,
                                   currencyId: currencyId
                               );
+                          }}else{
+                            _showMyDialog(context);
+                          }
+                            }else if (income == 0){
+                                TransactionCubit.get(context).insertToDatabase(
+                                  isId: isID,
+                                  contactId:c_id ,
+                                  description: descriptionController.text,
+                                  exchangeId:e_id ,
+                                  paid: paidController.text,
+                                  rest: restController.text,
+                                  total: totalController.text,
+                                  isIncome : income ,
+                                  transactionDate: transactionDateController.text,
+                                  walletId:w_id ,
+                                );
+                                String walletBalance = WalletCubit.get(context).getWalletBalance(walletName: walletIdController.text);
+                                int currencyId = WalletCubit.get(context).getWalletCurrency(walletName: walletIdController.text);
+                                int newBalance = int.parse(walletBalance) + int.parse(totalController.text);
+                                if(int.parse(isIncomeController.text) == 0 && walletBalance != null && currencyId != null){
+                                  WalletCubit.get(context).updateWalletDatabase(
+                                    isId: w_id,
+                                    walletName: walletIdController.text,
+                                    walletBalance: '$newBalance' ,
+                                    currencyId: currencyId
+                                  );
+                                }
                             }
-
                         }
-
-
-
                       });
                 },
               )
@@ -401,5 +374,32 @@ class AddTransaction extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('oops'),
+        content: SingleChildScrollView(
+          child:
+              Text('sorry wallet balance less than total of transaction'),
+
+
+
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
