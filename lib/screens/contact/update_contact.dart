@@ -43,7 +43,8 @@ class UpdateContact extends StatelessWidget {
                   nameController = TextEditingController(text: '$contactName'),
                   Icon(Icons.person),
                   () {},
-                  () {}),
+                  () {},
+                  TextInputType.text),
               SizedBox(
                 height: 50,
               ),

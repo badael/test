@@ -35,8 +35,8 @@ class TransactionCubit extends Cubit<TransactionStates>{
 
   void getTransactionsFromDatabase(){
     this.dao.findAllTransaction().then((value) {
-      getmixesFromDatabase();
-      print('111111111111111111 $value');
+      // getmixesFromDatabase();
+      // print('111111111111111111 $value');
       transactions = value;
       if(value.length > 0){
         lastId = value[value.length -1].id;
@@ -52,33 +52,35 @@ class TransactionCubit extends Cubit<TransactionStates>{
     });
   }
 
-  void getmixFromDatabase(){
-    this.dao.mixData().then((value) {
-      print('111111111111111111 ${value.walletName}');
-      mix = value;
-      emit(GetTransactionsFromDatabaseState());
-    });
-  }
+  // void getmixFromDatabase(){
+  //   this.dao.mixData().then((value) {
+  //     print('111111111111111111 ${value.walletName}');
+  //     mix = value;
+  //     emit(GetTransactionsFromDatabaseState());
+  //   });
+  // }
 
   void getTransactionByContactFromDatabase({
-  @required int contactId
+  @required int contactId,
+    @required int walletId,
+    @required int categoryId
 }){
-    this.dao.transactionByContact(contactId).then((value) {
+    this.dao.transactionByContact(contactId,walletId,categoryId).then((value) {
       transactionByContact = value;
       emit(GetTransactionsFromDatabaseState());
     });
   }
 
-  void getmixesFromDatabase(){
-    this.dao.mixesData().then((value) {
-      for(int i = 0 ; i <value.length ;i++){
-        print('111111111111111111 ${value[i].walletName},${value[i].exchangeCategoryName},${value[i].contactName}');
-      }
-      print('xxxxxxxxxxxxxxxxxxxxxx ${value.length}');
-      mixes = value;
-      emit(GetTransactionsFromDatabaseState());
-    });
-  }
+  // void getmixesFromDatabase(){
+  //   this.dao.mixesData().then((value) {
+  //     for(int i = 0 ; i <value.length ;i++){
+  //       print('111111111111111111 ${value[i].walletName},${value[i].exchangeCategoryName},${value[i].contactName}');
+  //     }
+  //     print('xxxxxxxxxxxxxxxxxxxxxx ${value.length}');
+  //     mixes = value;
+  //     emit(GetTransactionsFromDatabaseState());
+  //   });
+  // }
 
 
 
@@ -92,11 +94,9 @@ class TransactionCubit extends Cubit<TransactionStates>{
     @required int exchangeId,
     @required int walletId,
     @required int contactId,
+    @required int isIncome
   }){
-    print('ccccccc_id : $contactId');
-    print('wwwwwwwww_id : $walletId');
-    print('eeeeeeeeee_id : $exchangeId');
-    dao.insertTransaction(Transaction(isId, total, paid, rest, transactionDate, description, 1, 1, 1, exchangeId, walletId, contactId)).then((value) {
+    dao.insertTransaction(Transaction(isId, total, paid, rest, transactionDate, description, 1, 1, isIncome, exchangeId, walletId, contactId)).then((value) {
       emit(InsertTransactionsToDatabaseState());
       getTransactionsFromDatabase();
 

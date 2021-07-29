@@ -58,7 +58,8 @@ class Updatewallet extends StatelessWidget {
                   nameController = TextEditingController(text: '$walletName'),
                   Icon(Icons.drive_file_rename_outline),
                   () {},
-                  () {}),
+                  () {},
+                  TextInputType.text),
               // TextFormField(
               //   controller: nameController,
               //   decoration: const InputDecoration(
@@ -72,7 +73,7 @@ class Updatewallet extends StatelessWidget {
               ),
 
               CustomTextFormField('balance', balanceController,
-                  Icon(Icons.account_balance), () {}, () {}),
+                  Icon(Icons.account_balance), () {}, () {},TextInputType.number),
               // SizedBox(
               //   height: 50,
               // ),

@@ -32,5 +32,5 @@ abstract class TransactionDao {
   Future<List<Mix>> mixesData();
 
   @Query('SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet=w.id and t.exchange = e.id and t.contact = :contact.id')
-  Future<List<Mix>> transactionByContact(int contactId);
+  Future<List<Mix>> transactionByContact(int contactId,int walletId,int categoryId);
 }

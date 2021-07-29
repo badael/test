@@ -523,11 +523,138 @@ class _$TransactionDao extends TransactionDao {
   }
 
   @override
-  Future<List<Mix>> transactionByContact(int contactId){
-    return _queryAdapter.queryList('SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and c.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY c.name',
-        arguments: <dynamic>[contactId],
-        mapper: (Map<String, dynamic> row) =>Mix(row['id'] as int, row['name_wallet'] as String, row['name'] as String, row['name_exchange_category'] as String, row['total'] as String, row['paid'] as String, row['rest'] as String, row['description'] as String, row['is_income'] as int, row['transaction_date'] as String));
-
+  Future<List<Mix>> transactionByContact(
+      int contactId,
+      int walletId,
+      int categoryId) {
+    if (contactId != 0 && walletId != 0 && categoryId != 0) {
+    return _queryAdapter.queryList(
+        'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and c.id = ? and w.id = ? and e.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+        arguments: <dynamic>[contactId,walletId,categoryId],
+        mapper: (Map<String, dynamic> row) =>
+            Mix(
+                row['id'] as int,
+                row['name_wallet'] as String,
+                row['name'] as String,
+                row['name_exchange_category'] as String,
+                row['total'] as String,
+                row['paid'] as String,
+                row['rest'] as String,
+                row['description'] as String,
+                row['is_income'] as int,
+                row['transaction_date'] as String));
+            }else if(contactId == 0 && walletId != 0 && categoryId != 0){
+      return _queryAdapter.queryList(
+          'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and w.id = ? and e.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+          arguments: <dynamic>[walletId,categoryId],
+          mapper: (Map<String, dynamic> row) =>
+              Mix(
+                  row['id'] as int,
+                  row['name_wallet'] as String,
+                  row['name'] as String,
+                  row['name_exchange_category'] as String,
+                  row['total'] as String,
+                  row['paid'] as String,
+                  row['rest'] as String,
+                  row['description'] as String,
+                  row['is_income'] as int,
+                  row['transaction_date'] as String));
+          }else if (contactId != 0 && walletId == 0 && categoryId != 0){
+      return _queryAdapter.queryList(
+          'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and c.id = ? and e.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+          arguments: <dynamic>[contactId,categoryId],
+          mapper: (Map<String, dynamic> row) =>
+              Mix(
+                  row['id'] as int,
+                  row['name_wallet'] as String,
+                  row['name'] as String,
+                  row['name_exchange_category'] as String,
+                  row['total'] as String,
+                  row['paid'] as String,
+                  row['rest'] as String,
+                  row['description'] as String,
+                  row['is_income'] as int,
+                  row['transaction_date'] as String));
+        }else if (contactId != 0 && walletId != 0 && categoryId == 0) {
+      return _queryAdapter.queryList(
+          'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and c.id = ? and w.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+          arguments: <dynamic>[contactId,walletId],
+          mapper: (Map<String, dynamic> row) =>
+              Mix(
+                  row['id'] as int,
+                  row['name_wallet'] as String,
+                  row['name'] as String,
+                  row['name_exchange_category'] as String,
+                  row['total'] as String,
+                  row['paid'] as String,
+                  row['rest'] as String,
+                  row['description'] as String,
+                  row['is_income'] as int,
+                  row['transaction_date'] as String));
+      }else if(contactId == 0 && walletId == 0 && categoryId != 0){
+      return _queryAdapter.queryList(
+          'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and e.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+          arguments: <dynamic>[categoryId],
+          mapper: (Map<String, dynamic> row) =>
+              Mix(
+                  row['id'] as int,
+                  row['name_wallet'] as String,
+                  row['name'] as String,
+                  row['name_exchange_category'] as String,
+                  row['total'] as String,
+                  row['paid'] as String,
+                  row['rest'] as String,
+                  row['description'] as String,
+                  row['is_income'] as int,
+                  row['transaction_date'] as String));
+    }else if(contactId == 0 && walletId != 0 && categoryId == 0){
+      return _queryAdapter.queryList(
+          'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and w.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+          arguments: <dynamic>[walletId],
+          mapper: (Map<String, dynamic> row) =>
+              Mix(
+                  row['id'] as int,
+                  row['name_wallet'] as String,
+                  row['name'] as String,
+                  row['name_exchange_category'] as String,
+                  row['total'] as String,
+                  row['paid'] as String,
+                  row['rest'] as String,
+                  row['description'] as String,
+                  row['is_income'] as int,
+                  row['transaction_date'] as String));
+    }else if(contactId != 0 && walletId == 0 && categoryId == 0){
+      return _queryAdapter.queryList(
+          'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and c.id = ? and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+          arguments: <dynamic>[contactId],
+          mapper: (Map<String, dynamic> row) =>
+              Mix(
+                  row['id'] as int,
+                  row['name_wallet'] as String,
+                  row['name'] as String,
+                  row['name_exchange_category'] as String,
+                  row['total'] as String,
+                  row['paid'] as String,
+                  row['rest'] as String,
+                  row['description'] as String,
+                  row['is_income'] as int,
+                  row['transaction_date'] as String));
+    }else{
+      return _queryAdapter.queryList(
+          'SELECT t.id,w.name_wallet,c.name,e.name_exchange_category,t.total,t.paid,t.rest,t.description,t.transaction_date,t.is_income FROM "transaction" t,Wallet w,Contact c,exchange_category e WHERE t.wallet_id=w.id and t.contact_id=c.id and t.exchange_id=e.id GROUP BY t.id',
+          mapper: (Map<String, dynamic> row) =>
+              Mix(
+                  row['id'] as int,
+                  row['name_wallet'] as String,
+                  row['name'] as String,
+                  row['name_exchange_category'] as String,
+                  row['total'] as String,
+                  row['paid'] as String,
+                  row['rest'] as String,
+                  row['description'] as String,
+                  row['is_income'] as int,
+                  row['transaction_date'] as String));
+    }
   }
 
   @override

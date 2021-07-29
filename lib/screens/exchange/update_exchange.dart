@@ -43,7 +43,8 @@ class UpdateExchange extends StatelessWidget {
                   nameController = TextEditingController(text: '$exchangeName'),
                   Icon(Icons.person),
                   () {},
-                  () {}),
+                  () {},
+                  TextInputType.text),
               // TextFormField(
               //   controller: nameController,
               //   // initialValue: walletName,

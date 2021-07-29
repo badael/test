@@ -93,3 +93,66 @@ PreferredSizeWidget customAppBar({
     ],
   );
 }
+
+Widget customContainerCategory ({
+  @required String title,
+  @required Function deleteCategory,
+  @required Function editCategory,
+  @required CircleAvatar circleAvatar
+}){
+  return Container(
+    padding: EdgeInsets.all(10),
+    margin: EdgeInsets.all(1),
+    color: Colors.white,
+    child: Column(children: [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  padding: EdgeInsets.only(left: 8.0), child: circleAvatar),
+              Container(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  )),
+            ],
+          ),
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: (){},
+                icon: Icon(
+                  Icons.analytics_outlined,
+                  size: 20,
+                ),
+              ),
+              IconButton(
+                onPressed: editCategory(),
+                icon: Icon(
+                  Icons.edit,
+                  size: 20,
+                ),
+              ),
+              IconButton(
+                onPressed: deleteCategory(),
+                icon: Icon(
+                  Icons.delete,
+                  size: 20,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ]),
+  );
+}

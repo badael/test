@@ -45,7 +45,8 @@ class AddCurrency extends StatelessWidget {
                   nameController,
                   Icon(Icons.money),
                       (){},
-                      (){}),
+                      (){},
+                  TextInputType.text),
               // TextFormField(
               //   controller: nameController,
               //   decoration: const InputDecoration(

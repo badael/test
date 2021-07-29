@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:test_database_floor/screens/contact/contact_home.dart';
 import 'package:test_database_floor/screens/currency/currency_home.dart';
 import 'package:test_database_floor/screens/exchange/exchange_home.dart';
+import 'package:test_database_floor/screens/report/transaction_by_contact.dart';
 import 'package:test_database_floor/screens/transaction/transaction_home.dart';
 import 'package:test_database_floor/screens/wallet/wallet_home.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
@@ -106,7 +107,7 @@ class MyHomePage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.6,
                 color: Colors.amberAccent,
                 child:customRaisedButton(text: 'Reports', onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ReportHome()))),
+                    MaterialPageRoute(builder: (context) => TransactionByContact()))),
                 // TextButton(
                 //     onPressed: () => Navigator.push(context,
                 //         MaterialPageRoute(builder: (context) => TransactionHome())),

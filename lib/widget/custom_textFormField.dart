@@ -7,6 +7,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final Function functionValidate;
   final Function onSubmitField;
+  final TextInputType type;
 
   const CustomTextFormField(
     this.hintText,
@@ -14,6 +15,8 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.functionValidate,
     this.onSubmitField,
+     this.type,
+
   );
 
   @override
@@ -23,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
       // width: ,
       color: Colors.grey[100],
       child: TextFormField(
+        keyboardType: type,
         controller: controller,
         decoration: InputDecoration(
           border: OutlineInputBorder(
