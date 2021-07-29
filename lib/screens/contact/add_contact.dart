@@ -36,7 +36,7 @@ class AddContact extends StatelessWidget {
                 height: 20,
               ),
               CustomTextFormField('Name Contact', nameController,
-                  Icon(Icons.person), () {}, () {}),
+                  Icon(Icons.person), () {}, () {},TextInputType.text),
               // TextFormField(
               //   controller: nameController,
               //   decoration: const InputDecoration(

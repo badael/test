@@ -86,7 +86,9 @@ class Addwallet extends StatelessWidget {
                   balanceController,
                   Icon(Icons.account_balance),
                   (){},
-                  (){}),
+                  (){},
+                TextInputType.number
+              ),
               // SizedBox(
               //   height: 50,
               // ),

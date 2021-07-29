@@ -22,6 +22,8 @@ import 'package:test_database_floor/widget/custom_textFormField.dart';
 class TransactionByContact extends StatelessWidget {
 
   TextEditingController contactIdController = TextEditingController();
+  TextEditingController walletIdController = TextEditingController();
+  TextEditingController exchangeIdController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +114,111 @@ class TransactionByContact extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
+              BlocConsumer<WalletCubit,WalletStates>(
+                listener: (context,WalletStates state){},
+                builder:(context,WalletStates state){
+                  var x = WalletCubit.get(context);
+                  // ignore: unrelated_type_equality_checks
+                  return TextField(
+                    // onSubmitted: (value) => _childInfo(context),
+                    textAlign: TextAlign.right,
+                    readOnly: true,
+                    controller: walletIdController,
+                    style: TextStyle(fontSize: 18.0 , color: Colors.amberAccent,),cursorColor: Colors.amberAccent,
+                    decoration: InputDecoration(
+                      labelStyle: new TextStyle(
+                        color: Colors.amberAccent,
+
+                      ),
+                      focusedBorder:UnderlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.amberAccent, width: 1.0),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.amberAccent),
+                      ),
+                      prefixIcon: new DropdownButton<String>(
+                        underline: Container(
+                          decoration: const BoxDecoration(
+                              border: Border(bottom: BorderSide(color: Colors.transparent))
+                          ),
+                        ),
+                        icon: new Icon(Icons.keyboard_arrow_down),
+                        items: x.wallets.map((Wallet value) {
+                          return new DropdownMenuItem<String>(
+                            value: value.name,
+                            child: Text(value.name) ,
+                          );
+                        }).toList(),
+                        onChanged: (String value){
+                          walletIdController.text =value;
+                        },
+                      ),
+                      hintText: 'Wallet',
+                      hintStyle: TextStyle(color: Colors.black,fontSize: 20.0,fontWeight: FontWeight.bold),
+                      hoverColor: Colors.amberAccent,
+                      focusColor: Colors.amberAccent,
+                    ),
+//                        onSubmitted: (value) =>  Navigator.push(
+//                            context,
+//                            MaterialPageRoute(builder: (context) => ChildInfo(children[0]))) ,
+                  );
+                } ,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              BlocConsumer<ExchangeCubit,ExchangeStates>(
+                listener: (context,ExchangeStates state){},
+                builder:(context,ExchangeStates state){
+                  var x = ExchangeCubit.get(context);
+                  // ignore: unrelated_type_equality_checks
+                  return TextField(
+                    // onSubmitted: (value) => _childInfo(context),
+                    textAlign: TextAlign.right,
+                    readOnly: true,
+                    controller: exchangeIdController,
+                    style: TextStyle(fontSize: 18.0 , color: Colors.amberAccent,),cursorColor: Colors.amberAccent,
+                    decoration: InputDecoration(
+                      labelStyle: new TextStyle(
+                        color: Colors.amberAccent,
+
+                      ),
+                      focusedBorder:UnderlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.amberAccent, width: 1.0),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.amberAccent),
+                      ),
+                      prefixIcon: new DropdownButton<String>(
+                        underline: Container(
+                          decoration: const BoxDecoration(
+                              border: Border(bottom: BorderSide(color: Colors.transparent))
+                          ),
+                        ),
+                        icon: new Icon(Icons.keyboard_arrow_down),
+                        items: x.exchanges.map((ExchangeCategory value) {
+                          return new DropdownMenuItem<String>(
+                            value: value.name,
+                            child: Text(value.name) ,
+                          );
+                        }).toList(),
+                        onChanged: (String value){
+                          exchangeIdController.text =value;
+                        },
+                      ),
+                      hintText: 'Exchange Category',
+                      hintStyle: TextStyle(color: Colors.black,fontSize: 20.0,fontWeight: FontWeight.bold),
+                      hoverColor: Colors.amberAccent,
+                      focusColor: Colors.amberAccent,
+                    ),
+//                        onSubmitted: (value) =>  Navigator.push(
+//                            context,
+//                            MaterialPageRoute(builder: (context) => ChildInfo(children[0]))) ,
+                  );
+                } ,
+              ),
               BlocConsumer<ContactCubit,ContactStates>(
                 listener:(context,ContactStates states){} ,
                 builder: (context,ContactStates states){
@@ -120,11 +227,15 @@ class TransactionByContact extends StatelessWidget {
                       child: Text('save'),
                       onPressed: () {
                         TransactionCubit.get(context).getTransactionByContactFromDatabase(
-                            contactId: ContactCubit.get(context).getContactId(contactName: contactIdController.text
-                            ));
+                            contactId: ContactCubit.get(context).getContactId(contactName: contactIdController.text),
+                             walletId: WalletCubit.get(context).getWalletId(walletName: walletIdController.text),
+                          categoryId: ExchangeCubit.get(context).getExchangeId(exchangeName: exchangeIdController.text)
+                        );
                         int x = ContactCubit.get(context).getContactId(contactName: contactIdController.text);
+                        int y =WalletCubit.get(context).getWalletId(walletName: walletIdController.text);
+                        int z = ExchangeCubit.get(context).getExchangeId(exchangeName: exchangeIdController.text);
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => TransactionsByContact(contactId: x )));
+                            MaterialPageRoute(builder: (context) => TransactionsByContact(contactId: x,walletId: y,categoryId: z, )));
                       });
                 },
               )

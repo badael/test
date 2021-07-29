@@ -73,20 +73,7 @@ class TransactionHome extends StatelessWidget {
                                   // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
                                   transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
                                   // transactionCubit.getmixesFromDatabase();
-                                  // Timer(Duration(seconds: 1), () {
-                                  //   // 5 seconds over, navigate to Page2.
-                                  //   _showMyDialog(
-                                  //       context,
-                                  //       transactionCubit.mix.walletName,
-                                  //       transactionCubit.mix.transactionTotal,
-                                  //       transactionCubit.mix.transactionRest,
-                                  //       transactionCubit.mix.transactionPaid,
-                                  //       transactionCubit.mix.transactionDescription,
-                                  //       transactionCubit.mix.transactionDate,
-                                  //       transactionCubit.mix.contactName,
-                                  //       transactionCubit.mix.exchangeCategoryName
-                                  //   );
-                                  // });
+
 
                                 },
 

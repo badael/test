@@ -1,6 +1,7 @@
 import 'package:floor/floor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/screens/exchange/exchange_home.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
@@ -39,34 +40,48 @@ class AddExchange extends StatelessWidget {
           builder: (context,state){
             return ListView(children: [
 
-              SizedBox(height: 20,),
-              CustomTextFormField(
-                  'Name Exchange',
-                  nameController,
-                  Icon(Icons.person),
-                      (){},
-                      (){}),
-              // TextFormField(
-              //   controller: nameController,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'Name Exchange',
-              //   ),
-              // ),
-              SizedBox(
-                height: 50,
+              SizedBox(height: 100,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Expanded(
+                      child: TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Exchange Name',
+                          // labelText: 'Exchange Name'
+                        ),
+                      )
+                  ),
+                   SizedBox(
+                     width: 30,
+                   ),
+                   CircleAvatar(),
+                  SizedBox(
+                    width: 30,
+                  ),
+
+                ],
               ),
-              FlatButton(
-                  child: Text('save'),
-                  onPressed: () {
-                    ExchangeCubit.get(context).insertToDatabase(
-                      isId: isID,
-                      exchangeName: nameController.text,
-                    );
+              SizedBox(
+                height: 200,
+              ),
+              Card(
+                margin: EdgeInsets.all(100),
+                child: TextButton(
+                    child: Text('save'),
+                    onPressed: () {
+                      ExchangeCubit.get(context).insertToDatabase(
+                        isId: isID,
+                        exchangeName: nameController.text,
+                      );
 
 
-                  })
+                    }),
+              )
             ]);
           },
         ),

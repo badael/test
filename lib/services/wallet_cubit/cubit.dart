@@ -90,6 +90,28 @@ class WalletCubit extends Cubit<WalletStates>{
     return 0;
   }
 
+  String getWalletBalance({
+  @required String walletName,
+}){
+    for(int i = 0 ; i <wallets.length;i++){
+      if(wallets[i].name == walletName){
+        return wallets[i].balance;
+      }
+    }
+    return 'error';
+  }
+
+  int getWalletCurrency({
+    @required String walletName,
+  }){
+    for(int i = 0 ; i <wallets.length;i++){
+      if(wallets[i].name == walletName){
+        return wallets[i].currencyId;
+      }
+    }
+    return 0;
+  }
+
 
 
 

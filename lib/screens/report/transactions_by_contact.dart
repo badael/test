@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
+import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/transaction_cubit/cubit.dart';
 import 'package:test_database_floor/services/transaction_cubit/states.dart';
 import 'package:test_database_floor/services/wallet_cubit/cubit.dart';
@@ -11,8 +12,10 @@ import 'package:conditional_builder/conditional_builder.dart';
 
 class TransactionsByContact extends StatelessWidget {
   final int contactId;
+  final int walletId;
+  final int categoryId;
 
-  const TransactionsByContact({Key key, this.contactId}) : super(key: key);
+  const TransactionsByContact({Key key, this.contactId,this.walletId,this.categoryId}) : super(key: key);
 
 
   @override
@@ -27,6 +30,9 @@ class TransactionsByContact extends StatelessWidget {
           ),
           BlocProvider(
             create: (BuildContext context) => ContactCubit()..createDatabase(),
+          ),
+          BlocProvider(
+            create: (BuildContext context) => ExchangeCubit()..createDatabase(),
           )
         ],
 
@@ -40,11 +46,15 @@ class TransactionsByContact extends StatelessWidget {
                   Icon(Icons.wallet_giftcard),
                   'Reports'),
               body: ConditionalBuilder(
-                condition: true,
-                fallback: (context) => Center(child: CircularProgressIndicator(),),
+                condition: transactionCubit.transactionByContact != null,
+                fallback: (context) {
+                  transactionCubit.getTransactionByContactFromDatabase(contactId: contactId,walletId: walletId,categoryId: categoryId);
+
+                  return Center(child: CircularProgressIndicator(),);
+                },
                 builder: (context){
                   if(transactionCubit.transactionByContact == null){
-                    transactionCubit.getTransactionByContactFromDatabase(contactId: contactId);
+                    transactionCubit.getTransactionByContactFromDatabase(contactId: contactId,walletId: walletId,categoryId: categoryId);
                   }
                   return Center(
                     child: ListView.builder(

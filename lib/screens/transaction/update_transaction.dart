@@ -79,7 +79,8 @@ class UpdateTransaction extends StatelessWidget {
                   totalController,
                   Icon(Icons.person),
                       (){},
-                      (){}),
+                      (){},
+                  TextInputType.number),
               // TextFormField(
               //   controller: totalController,
               //   keyboardType: TextInputType.number,
@@ -97,7 +98,8 @@ class UpdateTransaction extends StatelessWidget {
                   paidController,
                   Icon(Icons.person),
                       (){},
-                      (){}),
+                      (){},
+                  TextInputType.number),
               // TextFormField(
               //   controller: paidController,
               //   keyboardType: TextInputType.number,
@@ -115,7 +117,8 @@ class UpdateTransaction extends StatelessWidget {
                   restController,
                   Icon(Icons.person),
                       (){},
-                      (){}),
+                      (){},
+                  TextInputType.number),
               // TextFormField(
               //   controller: restController,
               //   keyboardType: TextInputType.number,
@@ -133,7 +136,8 @@ class UpdateTransaction extends StatelessWidget {
                   transactionDateController,
                   Icon(Icons.date_range),
                       (){},
-                      (){}),
+                      (){},
+                  TextInputType.text),
               // TextFormField(
               //   controller: transactionDateController,
               //   keyboardType: TextInputType.datetime,
@@ -151,7 +155,7 @@ class UpdateTransaction extends StatelessWidget {
                   descriptionController,
                   Icon(Icons.description),
                       (){},
-                      (){}),
+                      (){},TextInputType.text),
               // TextFormField(
               //   controller: descriptionController,
               //   keyboardType: TextInputType.text,
@@ -169,7 +173,8 @@ class UpdateTransaction extends StatelessWidget {
                   isIncomeController,
                   Icon(Icons.person),
                       (){},
-                      (){}),
+                      (){},
+                  TextInputType.number),
               // TextFormField(
               //   controller: isIncomeController,
               //   keyboardType: TextInputType.number,

@@ -43,7 +43,8 @@ class UpdateCurrency extends StatelessWidget {
                   nameController = TextEditingController(text: '$currencyName'),
                   Icon(Icons.money),
                   () {},
-                  () {}),
+                  () {},
+                  TextInputType.text),
               // TextFormField(
               //   controller: nameController,
               //   // initialValue: walletName,
