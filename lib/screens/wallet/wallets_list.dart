@@ -8,7 +8,7 @@ class WalletsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-        title: Text('wallets'),
+        title: 'wallets',
         icon: customCircleAvatar(
           image: AssetImage('assets/wallet/Group2.png'),
         ),
