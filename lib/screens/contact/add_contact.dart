@@ -1,12 +1,14 @@
+import 'dart:ui';
+
 import 'package:floor/floor.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:test_database_floor/models/contact.dart';
 import 'package:test_database_floor/screens/contact/contact_home.dart';
 import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/contact_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
-import 'package:test_database_floor/widget/custom_textFormField.dart';
+import 'package:test_database_floor/widget/widgets.dart';
 
 class AddContact extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
@@ -16,7 +18,18 @@ class AddContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(Icon(Icons.wallet_giftcard), 'Add Contact'),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => ContactHome()));
+          },
+        ),
+        centerTitle: true,
+        title: Text('Add Contact'),
+        backgroundColor: Colors.amber[400],
+      ),
       body: MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -31,32 +44,57 @@ class AddContact extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return ListView(children: [
-              SizedBox(
-                height: 20,
+            return Container(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/image/user.png',
+                        width: 100,
+                        height: 100,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                        child: customFormField(
+                            label: 'Name Contact',
+                            controller: nameController,
+                            prefix: Icons.person)),
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      customRaisedButton(
+                          onPressed: () {
+                            ContactCubit.get(context).insertToDatabase(
+                              isId: isID,
+                              contactName: nameController.text,
+                            );
+                          },
+                          text: 'Save'),
+                      customRaisedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => ContactHome()));
+                          },
+                          text: 'Cansel'),
+                    ],
+                  )
+                ]),
               ),
-              CustomTextFormField('Name Contact', nameController,
-                  Icon(Icons.person), () {}, () {},TextInputType.text),
-              // TextFormField(
-              //   controller: nameController,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'Name Contact',
-              //   ),
-              // ),
-              SizedBox(
-                height: 50,
-              ),
-              FlatButton(
-                  child: Text('save'),
-                  onPressed: () {
-                    ContactCubit.get(context).insertToDatabase(
-                      isId: isID,
-                      contactName: nameController.text,
-                    );
-                  })
-            ]);
+            );
           },
         ),
       ),

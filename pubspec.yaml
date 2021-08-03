@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   floor: ^1.1.0
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,6 +46,7 @@ dev_dependencies:
 
   flutter_form_builder: ^6.0.1
   percent_indicator: ^3.0.1
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,6 +63,8 @@ flutter:
   assets:
     - assets/image/
     - assets/image_wallet/
+    - assets/category/
+  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -3,26 +3,27 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 Widget customFormField(
     {@required TextEditingController controller,
-      @required TextInputType type,
-      Function(String) onSubmit,
-      Function(String) onChange,
-      var onTap,
-      @required String label,
-      @required IconData prefix,
-      bool isClickable = true}) {
+    @required TextInputType type,
+    Function(String) onSubmit,
+    Function(String) onChange,
+    Function(String) validatorr,
+    var onTap,
+    @required String label,
+    @required IconData prefix,
+    bool isClickable = true}) {
   return TextFormField(
-    controller: controller,
-    keyboardType: type,
-    onFieldSubmitted: onSubmit,
-    onChanged: onChange,
-    enabled: isClickable,
-    onTap: onTap,
-    decoration: InputDecoration(
-      labelText: label,
-      prefixIcon: Icon(prefix),
-      border: OutlineInputBorder(),
-    ),
-  );
+      controller: controller,
+      keyboardType: type,
+      onFieldSubmitted: onSubmit,
+      validator: validatorr,
+      onChanged: onChange,
+      enabled: isClickable,
+      onTap: onTap,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(prefix),
+        border: OutlineInputBorder(),
+      ));
 }
 
 Widget customRaisedButton({
@@ -31,17 +32,18 @@ Widget customRaisedButton({
 }) {
   return FlatButton(
     shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.blue, width: 2.0)),
-    onPressed: onPressed(),
+        borderRadius: BorderRadius.circular(3),
+        side: BorderSide(color: Colors.amber[400], width: 2.0)),
+    onPressed: onPressed,
     child: Text(
       text,
       style: TextStyle(
-        color: Colors.blue,
+        color: Colors.black87,
         fontSize: 18,
         fontWeight: FontWeight.normal,
       ),
     ),
-    color: Colors.white,
+    color: Colors.amber[400],
   );
 }
 
@@ -486,13 +488,11 @@ Widget customlinerIndicator({
   );
 }
 
-
-Widget customContainerCategory ({
-  @required String title,
-  @required Function deleteCategory,
-  @required Function editCategory,
-  @required CircleAvatar circleAvatar
-}){
+Widget customContainerCategory(
+    {@required String title,
+    @required Function deleteCategory,
+    @required Function editCategory,
+    @required CircleAvatar circleAvatar}) {
   return Container(
     padding: EdgeInsets.all(10),
     margin: EdgeInsets.all(1),
@@ -522,7 +522,7 @@ Widget customContainerCategory ({
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: (){},
+                onPressed: () {},
                 icon: Icon(
                   Icons.analytics_outlined,
                   size: 20,
