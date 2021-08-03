@@ -6,19 +6,21 @@ import 'package:test_database_floor/services/wallet_cubit/states.dart';
 
 import '../dao/dao_wallet.dart';
 
-
-class WalletCubit extends Cubit<WalletStates>{
+class WalletCubit extends Cubit<WalletStates> {
   WalletCubit() : super(WalletIntialState());
 
   static WalletCubit get(context) => BlocProvider.of(context);
 
-  AppDatabase database ;
-  WalletDao dao  ;
+  AppDatabase database;
+  WalletDao dao;
   List<Wallet> wallets = [];
-  int lastId ;
+  int lastId;
 
-  void createDatabase(){
-    $FloorAppDatabase.databaseBuilder('database_wallet.db').build().then((value) {
+  void createDatabase() {
+    $FloorAppDatabase
+        .databaseBuilder('database_wallet.db')
+        .build()
+        .then((value) {
       database = value;
       dao = database.walletDao;
       emit(WalletCreateDatabaseState());
@@ -27,53 +29,59 @@ class WalletCubit extends Cubit<WalletStates>{
     });
   }
 
-  void getWalletsFromDatabase(){
+  void getWalletsFromDatabase() {
     this.dao.retrieveUsers().then((value) {
       wallets = value;
-      if(value.length > 0){
-        lastId = value[value.length -1].id;
-      }else{
+      if (value.length > 0) {
+        lastId = value[value.length - 1].id;
+      } else {
         lastId = 0;
       }
 
       emit(GetWalletsFromDatabaseState());
-
-
     });
   }
 
-
-
-  Future<void> insertToDatabase({
-    @required int isId,
-    @required String walletName,
-    @required String walletBalance,
-    @required int currencyId
-  }){
-    dao.insertPerson(Wallet(isId, walletName, walletBalance , 1,'' ,1,currencyId)).then((value) {
+  Future<void> insertToDatabase(
+      {@required int isId,
+      @required String walletName,
+      @required String walletBalance,
+      @required int currencyId,
+      String icon}) {
+    dao
+        .insertPerson(Wallet(
+      isId,
+      walletName,
+      walletBalance,
+      1,
+      icon,
+      1,
+      currencyId,
+    ))
+        .then((value) {
       emit(InsertWalletsToDatabaseState());
       getWalletsFromDatabase();
-
     });
   }
 
-  Future<void> updateWalletDatabase({
-    @required int isId,
-    @required String walletName,
-    @required String walletBalance,
-    @required int currencyId
-  }){
-    dao.updateWallet(Wallet(isId, walletName,walletBalance , 1,'' ,1,currencyId)).then((value) {
+  Future<void> updateWalletDatabase(
+      {@required int isId,
+      @required String walletName,
+      @required String walletBalance,
+      @required int currencyId}) {
+    dao
+        .updateWallet(
+            Wallet(isId, walletName, walletBalance, 1, '', 1, currencyId))
+        .then((value) {
       emit(UpdateWalletsToDatabaseState());
       getWalletsFromDatabase();
-
     });
   }
 
   void deleteWalletFromDatabase({
-  @required int id,
-}){
-    dao.deleteUser(id).then((value)  {
+    @required int id,
+  }) {
+    dao.deleteUser(id).then((value) {
       emit(DeleteWalletsFromDatabaseState());
       getWalletsFromDatabase();
     });
@@ -81,9 +89,9 @@ class WalletCubit extends Cubit<WalletStates>{
 
   int getWalletId({
     @required String walletName,
-  }){
-    for(int i = 0 ; i <wallets.length;i++){
-      if(wallets[i].name == walletName){
+  }) {
+    for (int i = 0; i < wallets.length; i++) {
+      if (wallets[i].name == walletName) {
         return wallets[i].id;
       }
     }
@@ -91,10 +99,10 @@ class WalletCubit extends Cubit<WalletStates>{
   }
 
   String getWalletBalance({
-  @required String walletName,
-}){
-    for(int i = 0 ; i <wallets.length;i++){
-      if(wallets[i].name == walletName){
+    @required String walletName,
+  }) {
+    for (int i = 0; i < wallets.length; i++) {
+      if (wallets[i].name == walletName) {
         return wallets[i].balance;
       }
     }
@@ -103,17 +111,12 @@ class WalletCubit extends Cubit<WalletStates>{
 
   int getWalletCurrency({
     @required String walletName,
-  }){
-    for(int i = 0 ; i <wallets.length;i++){
-      if(wallets[i].name == walletName){
+  }) {
+    for (int i = 0; i < wallets.length; i++) {
+      if (wallets[i].name == walletName) {
         return wallets[i].currencyId;
       }
     }
     return 0;
   }
-
-
-
-
-
 }

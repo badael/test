@@ -1,15 +1,16 @@
+import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 Widget customFormField(
-    {@required TextEditingController controller,
-      @required TextInputType type,
-      Function(String) onSubmit,
-      Function(String) onChange,
-      var onTap,
-      @required String label,
-      @required IconData prefix,
-      bool isClickable = true}) {
+    {TextEditingController controller,
+    TextInputType type,
+    Function(String) onSubmit,
+    Function(String) onChange,
+    var onTap,
+    String label,
+    // IconData prefix,
+    bool isClickable = true}) {
   return TextFormField(
     controller: controller,
     keyboardType: type,
@@ -19,7 +20,7 @@ Widget customFormField(
     onTap: onTap,
     decoration: InputDecoration(
       labelText: label,
-      prefixIcon: Icon(prefix),
+      // prefixIcon: Icon(prefix),
       border: OutlineInputBorder(),
     ),
   );
@@ -31,12 +32,13 @@ Widget customRaisedButton({
 }) {
   return FlatButton(
     shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.blue, width: 2.0)),
-    onPressed: onPressed(),
+        side: BorderSide(color: Colors.amber[400], width: 2.0),
+        borderRadius: BorderRadius.circular(10)),
+    onPressed: onPressed,
     child: Text(
       text,
       style: TextStyle(
-        color: Colors.blue,
+        color: Colors.grey,
         fontSize: 18,
         fontWeight: FontWeight.normal,
       ),
@@ -104,24 +106,31 @@ PreferredSizeWidget customAppBar({
 }
 
 Widget customAlertDialog({
-  @required String title,
-  @required String content,
+  String title,
+  String content,
+  Function submitMethod,
+  Function cancelMethod,
 }) {
   return AlertDialog(
-    title: Text(title),
-    titlePadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    titleTextStyle: TextStyle(color: Colors.black, fontSize: 25),
+    // title: Text(title),
+    // titlePadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    // titleTextStyle: TextStyle(
+    //   color: Colors.black,
+    //   fontSize: 25,
+    // ),
     content: Text(content),
     contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    contentTextStyle: TextStyle(color: Colors.black12, fontSize: 15),
+    contentTextStyle: TextStyle(color: Colors.black38, fontSize: 15),
     actions: [
       Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          customRaisedButton(text: 'ok', onPressed: () {}),
+          customRaisedButton(onPressed: submitMethod, text: 'ok'),
           SizedBox(
-            width: 25,
+            width: 30,
           ),
-          customRaisedButton(text: 'cancel', onPressed: () {}),
+          customRaisedButton(onPressed: cancelMethod, text: 'cancel'),
         ],
       ),
     ],
@@ -359,17 +368,16 @@ Widget customCardTransaction({
 }
 
 Widget customContainerWallet({
-  @required String title,
-  @required CircleAvatar circleAvatar,
-  @required Function searchMethod,
-  @required Function addMethod,
-  @required Function editMethod,
-  @required String balance,
+  String title,
+  Widget circleAvatar,
+  Function deletMethod,
+  Function TransactionMethod,
+  String balance,
 }) {
   return Container(
-    padding: EdgeInsets.all(10),
-    margin: EdgeInsets.all(10),
-    color: Colors.grey,
+    padding: EdgeInsets.all(8),
+    margin: EdgeInsets.all(5),
+    color: Colors.white,
     child: Column(children: [
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -378,41 +386,59 @@ Widget customContainerWallet({
           Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Container(padding: EdgeInsets.only(left: 2), child: circleAvatar),
               Container(
-                  padding: EdgeInsets.only(left: 8.0), child: circleAvatar),
-              Container(
-                  padding: EdgeInsets.only(left: 8.0),
+                  padding: EdgeInsets.only(left: 5),
                   child: Text(
-                    '$title : $balance',
+                    '$title  ',
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey[700]),
                   )),
             ],
           ),
           Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                child: Text(
+                  '$balance',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey[700]),
+                ),
+                padding: EdgeInsets.all(5),
+              ),
+              Container(
+                child: Text(
+                  's.p',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey[700]),
+                ),
+                padding: EdgeInsets.all(5),
+              ),
+            ],
+          ),
+          Row(
             children: [
               IconButton(
-                onPressed: searchMethod(),
+                onPressed: deletMethod,
                 icon: Icon(
-                  Icons.search,
+                  Icons.delete,
                   size: 20,
+                  color: Colors.blue,
                 ),
               ),
               IconButton(
-                onPressed: addMethod(),
+                onPressed: TransactionMethod,
                 icon: Icon(
-                  Icons.add,
+                  Icons.report_outlined,
                   size: 20,
-                ),
-              ),
-              IconButton(
-                onPressed: editMethod(),
-                icon: Icon(
-                  Icons.edit,
-                  size: 20,
+                  color: Colors.blue,
                 ),
               ),
             ],
@@ -486,13 +512,11 @@ Widget customlinerIndicator({
   );
 }
 
-
-Widget customContainerCategory ({
-  @required String title,
-  @required Function deleteCategory,
-  @required Function editCategory,
-  @required CircleAvatar circleAvatar
-}){
+Widget customContainerCategory(
+    {@required String title,
+    @required Function deleteCategory,
+    @required Function editCategory,
+    @required CircleAvatar circleAvatar}) {
   return Container(
     padding: EdgeInsets.all(10),
     margin: EdgeInsets.all(1),
@@ -522,7 +546,7 @@ Widget customContainerCategory ({
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: (){},
+                onPressed: () {},
                 icon: Icon(
                   Icons.analytics_outlined,
                   size: 20,
@@ -547,5 +571,15 @@ Widget customContainerCategory ({
         ],
       ),
     ]),
+  );
+}
+
+Widget customCircleAvatar({
+  AssetImage image,
+}) {
+  return CircleAvatar(
+    radius: 25.0,
+    foregroundImage: image,
+    backgroundColor: Colors.grey[200],
   );
 }
