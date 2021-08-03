@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:floor/floor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:test_database_floor/screens/exchange/category.dart';
 import 'package:test_database_floor/screens/exchange/exchange_home.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
@@ -54,6 +52,18 @@ class AddExchange extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Category()));
+                            },
+                            child: CircleAvatar(),
+                          ),
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
@@ -65,13 +75,6 @@ class AddExchange extends StatelessWidget {
                                     prefix: Icons.category)),
                             SizedBox(
                               width: 10,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Category()));
-                              },
-                              child: CircleAvatar(),
                             ),
                           ],
                         ),
