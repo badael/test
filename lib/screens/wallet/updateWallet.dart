@@ -72,8 +72,13 @@ class Updatewallet extends StatelessWidget {
                 height: 50,
               ),
 
-              CustomTextFormField('balance', balanceController,
-                  Icon(Icons.account_balance), () {}, () {},TextInputType.number),
+              CustomTextFormField(
+                  'balance',
+                  balanceController,
+                  Icon(Icons.account_balance),
+                  () {},
+                  () {},
+                  TextInputType.number),
               // SizedBox(
               //   height: 50,
               // ),

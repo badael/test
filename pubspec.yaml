@@ -64,6 +64,7 @@ flutter:
     - assets/image/
     - assets/image_wallet/
     - assets/category/
+    - assets/wallet/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
