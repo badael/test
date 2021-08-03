@@ -22,7 +22,11 @@ class ContactHome extends StatelessWidget {
         builder: (BuildContext context, ContactStates state) {
           ContactCubit cubit = ContactCubit.get(context);
           return Scaffold(
-              appBar: CustomAppBar(Icon(Icons.wallet_giftcard), 'My Contact'),
+              appBar: AppBar(
+                title: Text('My Contact'),
+                centerTitle: true,
+                backgroundColor: Colors.amber[400],
+              ),
               body: ConditionalBuilder(
                 condition: true,
                 fallback: (context) => Center(
@@ -34,18 +38,26 @@ class ContactHome extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
                           child: ListTile(
-                        contentPadding: EdgeInsets.all(8.0),
-                        title: Row(
-                          children: [
-                            Text(cubit.contacts[index].name),
-                          ],
-                        ),
-                        leading: IconButton(
+                        trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
                             cubit.deleteContactFromDatabase(
                                 id: cubit.contacts[index].id);
                           },
+                        ),
+                        contentPadding: EdgeInsets.all(8.0),
+                        title: Row(
+                          children: [
+                            Image.asset(
+                              'assets/image/user.png',
+                              width: 40,
+                              height: 40,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(cubit.contacts[index].name),
+                          ],
                         ),
                         onTap: () => Navigator.pushReplacement(
                             context,
@@ -60,45 +72,11 @@ class ContactHome extends StatelessWidget {
                   ;
                 },
               ),
-              // Text(basselCubit.bassels[index].name)
-              // FutureBuilder(
-              //   future: cubit.dao.retrieveUsers(),
-              //   builder: (BuildContext context, AsyncSnapshot<List<Wallet>> snapshot) {
-              //     if (snapshot.hasData) {
-              //       return ListView.builder(
-              //         itemCount: snapshot.data?.length,
-              //         itemBuilder: (BuildContext context, int index) {
-              //           return Card(
-              //               child: ListTile(
-              //                 contentPadding: EdgeInsets.all(8.0),
-              //                 title: Text(snapshot.data[index].name),
-              //                 leading: IconButton(
-              //                   icon: Icon(Icons.delete),
-              //                   onPressed: () {
-              //
-              //                       cubit.dao.deleteUser(snapshot.data[index].id);
-              //
-              //                   },
-              //                 ),
-              //               ));
-              //         },
-              //       );
-              //     } else {
-              //       return Center(child: CircularProgressIndicator());
-              //     }
-              //   },
-              // ),
               floatingActionButton: customFloatinActionButton(
                 icon: Icon(Icons.add),
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddContact())),
-              )
-              // FloatingActionButton(
-              //   child: Icon(Icons.add),
-              //   onPressed: () => Navigator.pushReplacement(context,
-              //       MaterialPageRoute(builder: (context) => AddContact())),
-              // ),
-              );
+              ));
         },
       ),
     );

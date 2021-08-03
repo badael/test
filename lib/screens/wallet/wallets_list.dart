@@ -8,11 +8,11 @@ class WalletsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-        title: 'wallets',
-        icon: customCircleAvatar(
-          image: AssetImage('assets/wallet/Group2.png'),
-        ),
-        cancelMethod: () => Navigator.pop(context),
+        title: Text("wallet"),
+        // icon: customCircleAvatar(
+        //   image: AssetImage('assets/wallet/Group2.png'),
+        // ),
+        // cancelMethod: () => Navigator.pop(context),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
