@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/screens/exchange/add_exchange.dart';
+import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
+import 'package:test_database_floor/services/exchange_cubit/states.dart';
+import 'package:test_database_floor/screens/exchange/category.dart';
+import 'package:test_database_floor/screens/exchange/exchange_home.dart';
+import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
+import 'package:test_database_floor/services/exchange_cubit/states.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Category extends StatelessWidget {
   @override
@@ -17,18 +24,35 @@ class Category extends StatelessWidget {
           title: Text('Add Exchang Category'),
           backgroundColor: Colors.amber[400],
         ),
-        body: Container(
-          padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-          child: InkWell(
-            onTap: () {},
-            child: GridView.extent(
-              mainAxisSpacing: 7.0,
-              maxCrossAxisExtent: 75.0,
-              crossAxisSpacing: 7.0,
-              children: _buildGridImages(65),
-            ),
-          ),
-        ));
+        body: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (BuildContext context) =>
+                    ExchangeCubit()..createDatabase(),
+              ),
+            ],
+            child: BlocConsumer<ExchangeCubit, ExchangeStates>(
+              listener: (context, ExchangeStates state) {
+                if (state is InsertExchangesToDatabaseState) {
+                  Navigator.pop(context,
+                      MaterialPageRoute(builder: (context) => ExchangeHome()));
+                }
+              },
+              builder: (context, state) {
+                return Container(
+                  padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                  child: InkWell(
+                    onTap: () {},
+                    child: GridView.extent(
+                      mainAxisSpacing: 7.0,
+                      maxCrossAxisExtent: 75.0,
+                      crossAxisSpacing: 7.0,
+                      children: _buildGridImages(65),
+                    ),
+                  ),
+                );
+              },
+            )));
   }
 }
 
@@ -44,5 +68,3 @@ List<Widget> _buildGridImages(numberOfImage) {
   });
   return containers;
 }
-
-Future<void> setImage() {}
