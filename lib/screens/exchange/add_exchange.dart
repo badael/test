@@ -13,9 +13,12 @@ import 'package:test_database_floor/widget/custom_textFormField.dart';
 import 'package:test_database_floor/widget/widgets.dart';
 
 class AddExchange extends StatelessWidget {
+  final String catImage;
   TextEditingController nameController = TextEditingController();
 
   int isID;
+
+   AddExchange({Key key, this.catImage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class AddExchange extends StatelessWidget {
         child: BlocConsumer<ExchangeCubit, ExchangeStates>(
           listener: (context, ExchangeStates state) {
             if (state is InsertExchangesToDatabaseState) {
-              Navigator.pop(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => ExchangeHome()));
             }
           },
@@ -60,7 +63,13 @@ class AddExchange extends StatelessWidget {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Category()));
                             },
-                            child: CircleAvatar(),
+                            child: catImage == '' ? CircleAvatar():
+                            Container(
+                              child: CircleAvatar(
+                                radius: 50,
+                                child: Image.asset(catImage),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -90,6 +99,7 @@ class AddExchange extends StatelessWidget {
                                 ExchangeCubit.get(context).insertToDatabase(
                                   isId: isID,
                                   exchangeName: nameController.text,
+                                  catImage: catImage
                                 );
                               },
                               text: 'Save'),
