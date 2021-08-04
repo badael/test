@@ -1,15 +1,10 @@
-import 'dart:io';
-import 'package:floor/floor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/screens/exchange/category.dart';
 import 'package:test_database_floor/screens/exchange/exchange_home.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
-import 'package:test_database_floor/widget/custom_appBar.dart';
-import 'package:test_database_floor/widget/custom_textFormField.dart';
 import 'package:test_database_floor/widget/widgets.dart';
 
 class AddExchange extends StatelessWidget {
@@ -41,7 +36,7 @@ class AddExchange extends StatelessWidget {
         child: BlocConsumer<ExchangeCubit, ExchangeStates>(
           listener: (context, ExchangeStates state) {
             if (state is InsertExchangesToDatabaseState) {
-              Navigator.pop(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => ExchangeHome()));
             }
           },

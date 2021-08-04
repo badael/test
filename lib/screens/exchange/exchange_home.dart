@@ -36,136 +36,107 @@ class ExchangeHome extends StatelessWidget {
                   return ListView.builder(
                     itemCount: cubit.exchanges.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.all(1),
-                        color: Colors.white,
-                        child: Column(children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child: CircleAvatar()),
-                                  Container(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        cubit.exchanges[index].name,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.analytics_outlined,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                UpdateExchange(
-                                                  exchangeId:
-                                                      cubit.exchanges[index].id,
-                                                  exchangeName: cubit
-                                                      .exchanges[index].name,
-                                                ))),
-                                    icon: Icon(
-                                      Icons.edit,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      cubit.deleteExchangeFromDatabase(
-                                          id: cubit.exchanges[index].id);
-                                    },
-                                    icon: Icon(
-                                      Icons.delete,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ]),
-                      );
-                      // Card(
-                      //     child: ListTile(
-                      //   contentPadding: EdgeInsets.all(8.0),
-                      //   title: Text(cubit.exchanges[index].name),
-                      //   leading: IconButton(
-                      //     icon: Icon(Icons.delete),
-                      //     onPressed: () {
-                      //       cubit.deleteExchangeFromDatabase(
-                      //           id: cubit.exchanges[index].id);
-                      //     },
-                      //   ),
-                      //   onTap: () => Navigator.pushReplacement(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => UpdateExchange(
-                      //                 exchangeId: cubit.exchanges[index].id,
-                      //                 exchangeName: cubit.exchanges[index].name,
-                      //               ))),
-                      // ));
+                      return Card(
+                          color: Colors.white,
+                          child: ListTile(
+                            trailing: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                cubit.deleteExchangeFromDatabase(
+                                    id: cubit.exchanges[index].id);
+                              },
+                            ),
+                            contentPadding: EdgeInsets.all(8.0),
+                            title: Row(
+                              children: [
+                                Image.asset(
+                                  'assets/category/image03.png',
+                                  width: 40,
+                                  height: 40,
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text(cubit.exchanges[index].name),
+                              ],
+                            ),
+                            onTap: () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UpdateExchange(
+                                          exchangeId: cubit.exchanges[index].id,
+                                          exchangeName:
+                                              cubit.exchanges[index].name,
+                                        ))),
+                          )
+                          // Column(children: [
+                          //   Row(
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Row(
+                          //         children: [
+                          //           Image.asset(
+                          //             'assets/image/user.png',
+                          //             width: 40,
+                          //             height: 40,
+                          //           ),
+                          //           SizedBox(
+                          //             width: 15,
+                          //           ),
+                          //           Text(cubit.exchanges[index].name),
+                          //         ],
+                          //       ),
+                          //       Row(
+                          //         children: [
+                          //           IconButton(
+                          //             onPressed: () {},
+                          //             icon: Icon(
+                          //               Icons.analytics_outlined,
+                          //               size: 20,
+                          //             ),
+                          //           ),
+                          //           IconButton(
+                          //             onPressed: () => Navigator.pushReplacement(
+                          //                 context,
+                          //                 MaterialPageRoute(
+                          //                     builder: (context) =>
+                          //                         UpdateExchange(
+                          //                           exchangeId:
+                          //                               cubit.exchanges[index].id,
+                          //                           exchangeName: cubit
+                          //                               .exchanges[index].name,
+                          //                         ))),
+                          //             icon: Icon(
+                          //               Icons.edit,
+                          //               size: 20,
+                          //             ),
+                          //           ),
+                          //           IconButton(
+                          //             onPressed: () {
+                          //               cubit.deleteExchangeFromDatabase(
+                          //                   id: cubit.exchanges[index].id);
+                          //             },
+                          //             icon: Icon(
+                          //               Icons.delete,
+                          //               size: 20,
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ]),
+                          );
                     },
                   );
                 },
               ),
-              // Text(basselCubit.bassels[index].name)
-              // FutureBuilder(
-              //   future: cubit.dao.retrieveUsers(),
-              //   builder: (BuildContext context, AsyncSnapshot<List<Wallet>> snapshot) {
-              //     if (snapshot.hasData) {
-              //       return ListView.builder(
-              //         itemCount: snapshot.data?.length,
-              //         itemBuilder: (BuildContext context, int index) {
-              //           return Card(
-              //               child: ListTile(
-              //                 contentPadding: EdgeInsets.all(8.0),
-              //                 title: Text(snapshot.data[index].name),
-              //                 leading: IconButton(
-              //                   icon: Icon(Icons.delete),
-              //                   onPressed: () {
-              //
-              //                       cubit.dao.deleteUser(snapshot.data[index].id);
-              //
-              //                   },
-              //                 ),
-              //               ));
-              //         },
-              //       );
-              //     } else {
-              //       return Center(child: CircularProgressIndicator());
-              //     }
-              //   },
-              // ),
               floatingActionButton: customFloatinActionButton(
                 icon: Icon(Icons.add),
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddExchange())),
-              )
-              // FloatingActionButton(
-              //   child: Icon(Icons.add),
-              //   onPressed: () => Navigator.pushReplacement(context,
-              //       MaterialPageRoute(builder: (context) => AddExchange())),
-              // ),
-              );
+              ));
         },
       ),
     );
