@@ -10,7 +10,7 @@ import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/custom_textFormField.dart';
-import 'package:test_database_floor/widget/widgets.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 class AddExchange extends StatelessWidget {
   final String catImage;

@@ -10,7 +10,7 @@ import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/wallet_cubit/cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
-import 'package:test_database_floor/widget/widgets.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 import 'all-transaction.dart';
 

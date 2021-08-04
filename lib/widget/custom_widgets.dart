@@ -9,7 +9,7 @@ Widget customFormField(
     Function(String) onChange,
     var onTap,
     String label,
-    // IconData prefix,
+    IconData prefix,
     bool isClickable = true}) {
   return TextFormField(
     controller: controller,
@@ -20,7 +20,7 @@ Widget customFormField(
     onTap: onTap,
     decoration: InputDecoration(
       labelText: label,
-      // prefixIcon: Icon(prefix),
+      prefixIcon: Icon(prefix),
       border: OutlineInputBorder(),
     ),
   );

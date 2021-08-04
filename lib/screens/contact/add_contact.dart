@@ -3,7 +3,8 @@ import 'package:test_database_floor/screens/contact/contact_home.dart';
 import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/contact_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_database_floor/widget/widgets.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
+
 
 class AddContact extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
