@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
-
-import 'package:test_database_floor/widget/custom_widgets.dart';
-
 import 'add_bank_account.dart';
 import 'add_cash_wallet.dart';
 import 'add_credit_card.dart';
 import 'add_planer_save.dart';
 import 'add_priberd_card.dart';
+import 'wallet_home.dart';
 
 class WalletsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(
-        title: Text('wallets'),
-        icon: Icon(Icons.ac_unit),
+      appBar: AppBar(
+        title: Text('Add Wallet'),
+        centerTitle: true,
+        backgroundColor: Colors.amber[400],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => WalletHome()));
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -26,7 +32,7 @@ class WalletsList extends StatelessWidget {
               RaisedButton(
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddCashWallet())),
-                color: Colors.grey[100],
+                color: Colors.white,
                 child: ListTile(
                   horizontalTitleGap: 50,
                   leading: Container(
@@ -41,17 +47,17 @@ class WalletsList extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 16),
                   ),
                 ),
               ),
               SizedBox(
-                height: 8,
+                height: 10,
               ),
               RaisedButton(
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddBankAccount())),
-                color: Colors.grey[100],
+                color: Colors.white,
                 child: ListTile(
                   horizontalTitleGap: 50,
                   leading: Container(
@@ -66,17 +72,17 @@ class WalletsList extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 16),
                   ),
                 ),
               ),
               SizedBox(
-                height: 8,
+                height: 10,
               ),
               RaisedButton(
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddCreditCard())),
-                color: Colors.grey[100],
+                color: Colors.white,
                 child: ListTile(
                   horizontalTitleGap: 50,
                   leading: Container(
@@ -91,17 +97,17 @@ class WalletsList extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 16),
                   ),
                 ),
               ),
               SizedBox(
-                height: 8,
+                height: 10,
               ),
               RaisedButton(
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddPrepaidCard())),
-                color: Colors.grey[100],
+                color: Colors.white,
                 child: ListTile(
                   horizontalTitleGap: 50,
                   leading: Container(
@@ -116,15 +122,15 @@ class WalletsList extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 16),
                   ),
                 ),
               ),
               SizedBox(
-                height: 8,
+                height: 10,
               ),
               RaisedButton(
-                color: Colors.grey[100],
+                color: Colors.white,
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddPlannerSave())),
                 child: ListTile(
@@ -141,7 +147,7 @@ class WalletsList extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 16),
                   ),
                 ),
               ),

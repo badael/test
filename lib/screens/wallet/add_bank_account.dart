@@ -21,7 +21,7 @@ class AddBankAccount extends StatelessWidget {
   int dropdownValue = 1;
 
   int isID;
-  String image = 'assets/wallet/Group3.png';
+  String image = 'assets/wallet/account.png';
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +59,13 @@ class AddBankAccount extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        width: 150.0,
-                        height: 150.0,
+                        width: 100.0,
+                        height: 100.0,
                         decoration: BoxDecoration(
                           color: Colors.grey[100],
                           image: DecorationImage(
                             alignment: Alignment.center,
+                            scale: 8,
 
                             image: AssetImage(image),
                             // fit: BoxFit.cover,

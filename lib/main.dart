@@ -1,6 +1,4 @@
-import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
-import 'package:test_database_floor/services/dao/dao_wallet.dart';
 import 'bloc-observer.dart';
 import 'database/database.dart';
 import 'screens/myhomepage.dart';
@@ -17,7 +15,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
