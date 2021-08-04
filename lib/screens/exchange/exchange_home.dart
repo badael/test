@@ -50,7 +50,11 @@ class ExchangeHome extends StatelessWidget {
                                 children: [
                                   Container(
                                       padding: EdgeInsets.only(left: 8.0),
-                                      child: CircleAvatar()),
+                                      child:cubit.exchanges[index].icon == '' ? CircleAvatar():
+                                           CircleAvatar(
+                                           child: Image.asset(cubit.exchanges[index].icon),
+                                           )
+                      ),
                                   Container(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: Text(
@@ -158,7 +162,7 @@ class ExchangeHome extends StatelessWidget {
               floatingActionButton: customFloatinActionButton(
                 icon: Icon(Icons.add),
                 onPressed: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => AddExchange())),
+                    MaterialPageRoute(builder: (context) => AddExchange(catImage: '',))),
               )
               // FloatingActionButton(
               //   child: Icon(Icons.add),

@@ -47,7 +47,7 @@ class Category extends StatelessWidget {
                       mainAxisSpacing: 7.0,
                       maxCrossAxisExtent: 75.0,
                       crossAxisSpacing: 7.0,
-                      children: _buildGridImages(65),
+                      children: _buildGridImages(65,context),
                     ),
                   ),
                 );
@@ -56,14 +56,21 @@ class Category extends StatelessWidget {
   }
 }
 
-List<Widget> _buildGridImages(numberOfImage) {
+List<Widget> _buildGridImages(numberOfImage,context) {
   List<Container> containers =
       List<Container>.generate(numberOfImage, (int index) {
     final imageName = index < 9
         ? 'assets/category/image0${index + 1}.png'
         : 'assets/category/image${index + 1}.png';
     return Container(
-      child: Image.asset(imageName),
+      child: InkWell(
+          child: Image.asset(imageName),
+        onTap: (){
+            print('image name is $imageName');
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AddExchange(catImage: imageName,)));
+        },
+      ),
     );
   });
   return containers;
