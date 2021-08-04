@@ -1,13 +1,8 @@
-import 'dart:ui';
-
-import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
-import 'package:test_database_floor/models/contact.dart';
 import 'package:test_database_floor/screens/contact/contact_home.dart';
 import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/contact_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/widgets.dart';
 
 class AddContact extends StatelessWidget {
