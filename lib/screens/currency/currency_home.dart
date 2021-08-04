@@ -6,7 +6,7 @@ import 'package:test_database_floor/screens/currency/update_currency.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/states.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
-import 'package:test_database_floor/widget/widgets.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 class CurrencyHome extends StatelessWidget {
 

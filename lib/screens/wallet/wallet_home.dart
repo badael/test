@@ -5,9 +5,7 @@ import 'package:test_database_floor/services/wallet_cubit/cubit.dart';
 import 'package:test_database_floor/services/wallet_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
-import 'package:test_database_floor/widget/custom_widgets.dart'
-    hide customFloatinActionButton;
-import 'package:test_database_floor/widget/widgets.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 class WalletHome extends StatelessWidget {
   @override

@@ -6,8 +6,7 @@ import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/contact_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
-import 'package:test_database_floor/widget/widgets.dart';
-
+import 'package:test_database_floor/widget/custom_widgets.dart';
 class UpdateContact extends StatelessWidget {
   final contactId;
   final contactName;

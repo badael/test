@@ -15,7 +15,7 @@ import 'package:test_database_floor/screens/wallet/updateWallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
-import 'package:test_database_floor/widget/widgets.dart';
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 class TransactionHome extends StatelessWidget {
 
